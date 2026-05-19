@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ Wonder ID Dashboard</title>
+
+  <!-- Modern Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/jpeg" href="Wonderlight Studios logo.jpeg">
+  <style>
+    /* -------------------------------------------------------------
+       CSS Design System & Styles
+       ------------------------------------------------------------- */
+    :root {
+      --color-slate-950: #020617;
+      --color-slate-900: #0f172a;
+      --color-slate-800: #1e293b;
+      --color-slate-700: #334155;
+      --color-slate-400: #94a3b8;
+      --color-purple: #8b5cf6;
+      --color-purple-light: #a78bfa;
+      --color-purple-dark: #7c3aed;
+      --color-red: #ef4444;
+      --color-red-dark: #b91c1c;
+      --color-emerald: #10b981;
+      --color-white: #ffffff;
+      --font-outfit: 'Outfit', sans-serif;
+      --font-inter: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-inter);
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--color-slate-900) 60%, var(--color-slate-950) 100%);
+      color: #f1f5f9;
+      min-height: 100vh;
+      padding: 24px;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation bar */
+    .top-nav {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto 32px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-logo {
+      font-size: 24px;
+      filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+    }
+
+    .brand-name {
+      font-family: var(--font-outfit);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--color-white);
+    }
+
+    .logout-btn {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      color: var(--color-slate-400);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .logout-btn:hover {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #f87171;
+    }
+
+    /* Main Container Layout */
+    .dashboard-container {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1.8fr;
+      gap: 24px;
+      flex-grow: 1;
+    }
+
+    @media (max-width: 820px) {
+      .dashboard-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Cards Structure */
+    .dashboard-card {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-title {
+      font-family: var(--font-outfit);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Profile Side Layout */
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Interactive Avatar Ring Styling */
+    .avatar-wrapper {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, var(--color-purple-light) 0%, var(--color-purple-dark) 100%);
+      box-shadow: 0 0 25px rgba(139, 92, 246, 0.35);
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .avatar-wrapper:hover {
+      transform: scale(1.06);
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--color-slate-900);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: var(--color-white);
+    }
+
+    .avatar-inner svg {
+      width: 50px;
+      height: 50px;
+      stroke-width: 1.5;
+    }
+
+    .avatar-edit-badge {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--color-purple);
+      border: 3px solid var(--color-slate-900);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--color-white);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Dropdown Avatar Selector */
+    .avatar-selector {
+      width: 100%;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 16px;
+      padding: 0;
+      margin-bottom: 20px;
+    }
+
+    .avatar-selector.open {
+      max-height: 160px;
+      opacity: 1;
+      padding: 16px;
+      margin-top: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .avatar-selector-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+    }
+
+    .avatar-option {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      padding: 2px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-option:hover {
+      transform: scale(1.15);
+    }
+
+    .avatar-option.selected {
+      background: var(--color-white);
+      box-shadow: 0 0 10px var(--color-white);
+    }
+
+    .avatar-option-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-white);
+    }
+
+    .avatar-option-inner svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    @media (max-width: 400px) {
+      .avatar-selector-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .avatar-selector.open {
+        max-height: 220px;
+      }
+    }
+
+    .user-name {
+      font-family: var(--font-outfit);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-white);
+      margin-bottom: 4px;
+    }
+
+    .user-email {
+      font-size: 13.5px;
+      color: var(--color-slate-400);
+      margin-bottom: 16px;
+    }
+
+    .join-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--color-purple-light);
+      font-weight: 600;
+    }
+
+    /* Info Field Layouts */
+    .field-group {
+      margin-bottom: 24px;
+    }
+
+    .field-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-slate-400);
+      margin-bottom: 8px;
+    }
+
+    .field-value-card {
+      padding: 14px 16px;
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      color: var(--color-white);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Buttons */
+    .btn-secondary {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 12px;
+      color: var(--color-purple-light);
+      font-family: var(--font-outfit);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-purple);
+      color: var(--color-white);
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.35);
+    }
+
+    /* Danger zone */
+    .danger-zone {
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      background: rgba(239, 68, 68, 0.03);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 32px;
+    }
+
+    .danger-title {
+      color: var(--color-red);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .danger-desc {
+      font-size: 12.5px;
+      color: var(--color-slate-400);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .btn-danger {
+      padding: 10px 16px;
+      background: transparent;
+      border: 1px solid var(--color-red);
+      border-radius: 10px;
+      color: var(--color-red);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .btn-danger:hover {
+      background: var(--color-red);
+      color: var(--color-white);
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    }
+
+    /* HIGH-SECURITY ACCOUNT DELETION MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: var(--color-slate-900);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 440px;
+      padding: 32px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(239, 68, 68, 0.15);
+      transform: translateY(20px);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.open .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      color: var(--color-white);
+      font-family: var(--font-outfit);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-warning-box {
+      background: rgba(239, 68, 68, 0.1);
+      border-left: 4px solid var(--color-red);
+      padding: 12px 16px;
+      border-radius: 4px 8px 8px 4px;
+      margin-bottom: 20px;
+    }
+
+    .modal-warning-text {
+      color: #fca5a5;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(2, 6, 23, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      color: var(--color-white);
+      font-size: 14px;
+      margin-bottom: 24px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .modal-input:focus {
+      outline: none;
+      border-color: var(--color-red);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .btn-cancel {
+      padding: 11px 20px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      color: var(--color-slate-400);
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-cancel:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--color-white);
+    }
+
+    .btn-confirm-delete {
+      padding: 11px 20px;
+      background: linear-gradient(135deg, var(--color-red) 0%, var(--color-red-dark) 100%);
+      border: none;
+      border-radius: 10px;
+      color: var(--color-white);
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-confirm-delete:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(239, 68, 68, 0.45);
+    }
+
+    .btn-confirm-delete:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Common Spinners */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--color-white);
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Admin Panel Layout */
+    .admin-card {
+      grid-column: 1 / -1;
+      display: none; /* Only visible for thomas@vzunderd.nl */
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 16px;
+    }
+
+    .admin-users-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .admin-user-card {
+      background: rgba(30, 41, 59, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .admin-user-card:hover {
+      transform: translateY(-2px);
+      background: rgba(30, 41, 59, 0.7);
+      border-color: var(--color-purple-light);
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
+    }
+
+    .admin-user-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .admin-user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .admin-user-avatar svg {
+      width: 60%;
+      height: 60%;
+      color: var(--color-white);
+    }
+
+    .admin-user-info {
+      flex-grow: 1;
+      min-width: 0;
+    }
+
+    .admin-user-name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--color-white);
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .admin-user-email {
+      font-size: 12px;
+      color: var(--color-slate-400);
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .admin-user-date {
+      font-size: 10.5px;
+      color: var(--color-purple-light);
+      font-weight: 500;
+    }
+
+    /* Admin Modal Details */
+    .admin-detail-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px auto;
+      background: rgba(139, 92, 246, 0.1);
+      border: 2px solid var(--color-purple-light);
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.25);
+    }
+
+    .admin-detail-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .admin-detail-avatar svg {
+      width: 60%;
+      height: 60%;
+      color: var(--color-white);
+    }
+
+    .admin-detail-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 24px;
+    }
+  </style>
+
+  <!-- ESM Import Maps Configuration -->
+  <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+        "firebase/analytics": "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js",
+        "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+        "firebase/firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+  <!-- Full-Screen Session Shroud to prevent raw DOM flashing -->
+  <div id="loading-shroud"
+    style="position: fixed; inset: 0; background: #020617; display: flex; align-items: center; justify-content: center; z-index: 999999; font-family: 'Outfit', sans-serif;">
+    <div style="text-align: center;">
+      <div class="spinner"
+        style="width: 40px; height: 40px; border-width: 3px; border-top-color: #8b5cf6; margin-bottom: 16px;"></div>
+      <div
+        style="color: #94a3b8; font-weight: 600; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;">
+        Syncing Session...</div>
+    </div>
+  </div>
+
+  <!-- Dashboard Top Nav -->
+  <header class="top-nav">
+    <div class="brand">
+      <span class="brand-logo">⚡</span>
+      <span class="brand-name">Wonder ID</span>
+    </div>
+    <button class="logout-btn" id="logout-btn">Log Out</button>
+  </header>
+
+  <!-- Dashboard Content -->
+  <main class="dashboard-container">
+
+    <!-- LEFT CARD: USER PROFILE SUMMARY -->
+    <section class="dashboard-card profile-section">
+      <!-- Reactive Avatar Container -->
+      <div class="avatar-wrapper" id="avatar-btn">
+        <div class="avatar-inner" id="avatar-display">
+          <!-- Dynamically inserted active SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+          </svg>
+        </div>
+        <div class="avatar-edit-badge">🎨</div>
+      </div>
+
+      <!-- Avatar Picker Drawer -->
+      <div class="avatar-selector" id="avatar-selector">
+        <p
+          style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--color-slate-400); margin-bottom: 10px; letter-spacing: 0.05em;">
+          Select Identity Stamp</p>
+        <div class="avatar-selector-grid" id="avatar-options-container">
+          <!-- Render options in JS -->
+        </div>
+      </div>
+
+      <h2 class="user-name" id="profile-username">---</h2>
+      <p class="user-email" id="profile-email">---</p>
+
+      <div class="join-tag">
+        <span>✨</span> <span id="profile-joindate">Joined ---</span>
+      </div>
+    </section>
+
+    <!-- RIGHT CARD: ACCOUNT MANAGEMENT & SECURITY -->
+    <section class="dashboard-card">
+      <h3 class="card-title">
+        <span>🛡️</span> Security & Credentials
+      </h3>
+
+      <div class="field-group">
+        <div class="field-label">Wonder ID Profile Username</div>
+        <div class="field-value-card">
+          <span id="field-username">Loading...</span>
+          <span
+            style="font-size: 11px; padding: 4px 8px; background: rgba(16, 185, 129, 0.15); color: var(--color-emerald); font-weight: 700; border-radius: 6px; text-transform: uppercase; border: 1px solid rgba(16, 185, 129, 0.2);">Firestore
+            Sync</span>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <div class="field-label">Email Endpoint Address</div>
+        <div class="field-value-card">
+          <span id="field-email">Loading...</span>
+          <span
+            style="font-size: 11px; padding: 4px 8px; background: rgba(139, 92, 246, 0.15); color: var(--color-purple-light); font-weight: 700; border-radius: 6px; text-transform: uppercase; border: 1px solid rgba(139, 92, 246, 0.2);">Primary
+            Auth</span>
+        </div>
+      </div>
+
+      <!-- Reset Password Action -->
+      <div style="margin-top: 32px;">
+        <h4 class="field-label">Quick Actions</h4>
+        <button class="btn-secondary" id="reset-password-btn">
+          <span>🔄</span> <span>Request Password Reset Email</span>
+        </button>
+      </div>
+
+      <!-- Danger Zone Area -->
+      <div class="danger-zone">
+        <div class="danger-title">
+          <span>⚠️</span> Danger Zone
+        </div>
+        <p class="danger-desc">
+          Permanently delete your unified Wonder ID. This will immediately purge your Firestore documents and delete
+          your Firebase authentication credentials. This action cannot be undone.
+        </p>
+        <button class="btn-danger" id="open-delete-modal-btn">Delete Wonder ID Account</button>
+      </div>
+    </section>
+    <!-- THIRD CARD: WONDER ID SYSTEM REGISTRY (ONLY FOR thomas@vzunderd.nl) -->
+    <section class="dashboard-card admin-card" id="admin-panel">
+      <div class="admin-header">
+        <h3 class="card-title" style="margin-bottom: 0;">
+          <span>👑</span> Wonder ID User Registry
+        </h3>
+        <span style="font-size: 11px; padding: 4px 8px; background: rgba(139, 92, 246, 0.15); color: var(--color-purple-light); font-weight: 700; border-radius: 6px; text-transform: uppercase; border: 1px solid rgba(139, 92, 246, 0.2);">Systems Admin</span>
+      </div>
+      <p style="font-size: 13.5px; color: var(--color-slate-400); margin-bottom: 24px; line-height: 1.6;">
+        Welcome, Administrator. Below are the unified user profiles registered in the Wonder ID identification network. Select a user to inspect their identity, dispatch password recovery instructions, or purge their Firestore profile document.
+      </p>
+      <div class="admin-users-grid" id="admin-users-grid">
+        <!-- Dynamic content loaded in JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- HIGH-SECURITY SECURITY modal -->
+  <div class="modal-overlay" id="delete-modal">
+    <div class="modal-card">
+      <h3 class="modal-header">
+        <span>⚠️</span> Confirm Account Deletion
+      </h3>
+      <div class="modal-warning-box">
+        <p class="modal-warning-text">
+          <strong>CRITICAL WARNING:</strong> This action cannot be undone and you will lose all game progress, unified
+          cloud saves, and studio website points linked to your Wonder ID.
+        </p>
+      </div>
+
+      <p style="font-size: 13px; color: var(--color-slate-400); line-height: 1.5; margin-bottom: 12px;">
+        For your protection, you must re-authenticate by entering your current password below to permanently purge this
+        account.
+      </p>
+
+      <label class="field-label" for="reauth-password">Enter Account Password</label>
+      <input type="password" class="modal-input" id="reauth-password" placeholder="••••••••"
+        autocomplete="current-password">
+
+      <div class="modal-actions">
+        <button class="btn-cancel" id="close-delete-modal-btn">Cancel</button>
+        <button class="btn-confirm-delete" id="confirm-delete-btn">
+          <span>Purge Account Permanently</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN USER INSPECTION MODAL -->
+  <div class="modal-overlay" id="admin-inspect-modal">
+    <div class="modal-card">
+      <h3 class="modal-header">
+        <span>🔎</span> Inspect Account Identity
+      </h3>
+      
+      <div id="admin-detail-avatar-container">
+        <!-- Render avatar display -->
+      </div>
+
+      <div style="background: rgba(30, 41, 59, 0.4); border-radius: 12px; padding: 16px; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.04); display: flex; flex-direction: column; gap: 12px;">
+        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+          <span style="color: var(--color-slate-400);">Username:</span>
+          <span style="color: var(--color-white); font-weight: 600;" id="admin-inspect-username">---</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+          <span style="color: var(--color-slate-400);">Email Address:</span>
+          <span style="color: var(--color-white); font-weight: 600;" id="admin-inspect-email">---</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+          <span style="color: var(--color-slate-400);">Join Date:</span>
+          <span style="color: var(--color-purple-light); font-weight: 600;" id="admin-inspect-joindate">---</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+          <span style="color: var(--color-slate-400);">User ID:</span>
+          <span style="font-family: monospace; font-size: 11.5px; color: var(--color-slate-400); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="admin-inspect-uid">---</span>
+        </div>
+      </div>
+
+      <div class="admin-detail-actions">
+        <button class="btn-secondary" id="admin-send-reset-btn" style="width: 100%; display: flex; justify-content: center; gap: 8px; margin: 0;">
+          <span>📧</span> Send Password Reset Link
+        </button>
+        <button class="btn-danger" id="admin-delete-user-btn" style="width: 100%; display: flex; justify-content: center; gap: 8px; margin: 0; padding: 12px 20px;">
+          <span>🗑️</span> Purge Firestore Profile
+        </button>
+      </div>
+
+      <div class="modal-actions" style="margin-top: 20px;">
+        <button class="btn-cancel" id="close-admin-inspect-modal-btn">Close Inspector</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Javascript Dashboard Logic -->
+  <script type="module">
+    import {
+      auth,
+      db,
+      doc,
+      getDoc,
+      setDoc,
+      deleteDoc,
+      collection,
+      getDocs,
+      signOut,
+      sendPasswordResetEmail,
+      deleteUser,
+      reauthenticateWithCredential,
+      EmailAuthProvider,
+      showToast
+    } from "./app.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    // -----------------------------------------------------------
+    // Avatar Preset Data Dictionary
+    // -----------------------------------------------------------
+    const AVATARS = {
+      avatar1: {
+        name: "Volt Spark",
+        gradient: "linear-gradient(135deg, #8b5cf6, #ec4899)",
+        svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`
+      },
+      avatar2: {
+        name: "Cosmic Orb",
+        gradient: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+        svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`
+      },
+      avatar3: {
+        name: "Emerald Grid",
+        gradient: "linear-gradient(135deg, #10b981, #3b82f6)",
+        svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/></svg>`
+      },
+      avatar4: {
+        name: "Phoenix Flame",
+        gradient: "linear-gradient(135deg, #ef4444, #f59e0b)",
+        svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`
+      },
+      avatar5: {
+        name: "Nebula Planet",
+        gradient: "linear-gradient(135deg, #ec4899, #ef4444)",
+        svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="6"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`
+      },
+      avatar6: {
+        name: "Cyber Node",
+        gradient: "linear-gradient(135deg, #14b8a6, #10b981)",
+        svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="12" y1="4" x2="12" y2="20"/></svg>`
+      }
+    };
+
+    let currentUserUID = null;
+    let currentUserEmail = "";
+    let activeAvatarSelection = "avatar1";
+
+    // -----------------------------------------------------------
+    // Security Navigation Guards (Session Tracking)
+    // -----------------------------------------------------------
+    const shroudEl = document.getElementById('loading-shroud');
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        // Not authenticated, send back to login index
+        window.location.href = "index.html";
+      } else {
+        currentUserUID = user.uid;
+        currentUserEmail = user.email;
+
+        // Retrieve custom data from Firestore
+        try {
+          const userDocRef = doc(db, "users", user.uid);
+          const userDocSnap = await getDoc(userDocRef);
+
+          if (userDocSnap.exists()) {
+            const data = userDocSnap.data();
+
+            // Render Profile UI details
+            document.getElementById('profile-username').textContent = data.username || "WonderGamer";
+            document.getElementById('field-username').textContent = data.username || "WonderGamer";
+            document.getElementById('profile-email').textContent = user.email;
+            document.getElementById('field-email').textContent = user.email;
+            document.getElementById('profile-joindate').textContent = `Joined ${data.joinDate || "Recently"}`;
+
+            activeAvatarSelection = data.profilePicSelection || "avatar1";
+            renderAvatarDisplay(activeAvatarSelection);
+
+            // Dynamically sync email field if missing in Firestore profile
+            if (!data.email) {
+              await setDoc(userDocRef, { email: user.email }, { merge: true });
+            }
+          } else {
+            // Fallback if no Firestore profile was found (e.g. legacy account or direct create)
+            console.warn("Firestore profile document not found. Auto-generating basic file...");
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const defaultDate = new Date().toLocaleDateString('en-US', options);
+            const defaultUsername = user.email.split('@')[0];
+
+            await setDoc(doc(db, "users", user.uid), {
+              username: defaultUsername,
+              email: user.email,
+              joinDate: defaultDate,
+              profilePicSelection: "avatar1"
+            });
+
+            document.getElementById('profile-username').textContent = defaultUsername;
+            document.getElementById('field-username').textContent = defaultUsername;
+            document.getElementById('profile-email').textContent = user.email;
+            document.getElementById('field-email').textContent = user.email;
+            document.getElementById('profile-joindate').textContent = `Joined ${defaultDate}`;
+            activeAvatarSelection = "avatar1";
+            renderAvatarDisplay(activeAvatarSelection);
+          }
+
+          // Administrator Check & Panel Rendering: ONLY thomas@vzunderd.nl
+          if (user.email === "thomas@vzunderd.nl") {
+            document.getElementById('admin-panel').style.display = 'block';
+            await loadAdminUserRegistry();
+          }
+
+          // Shroud fade-out transition
+          shroudEl.style.opacity = '0';
+          shroudEl.style.transition = 'opacity 0.4s ease';
+          setTimeout(() => {
+            shroudEl.remove();
+          }, 450);
+
+        } catch (err) {
+          console.error("Firestore sync failure:", err);
+          showToast("Failed to fetch account profile data.", "error");
+          // Still dismiss shroud to show page or log out
+          shroudEl.remove();
+        }
+      }
+    });
+
+    // -----------------------------------------------------------
+    // Systems Admin Panel Logic (ONLY for thomas@vzunderd.nl)
+    // -----------------------------------------------------------
+    let selectedAdminUser = null;
+
+    function getAdminAvatarHTML(avatarId) {
+      if (AVATARS[avatarId]) {
+        const avatar = AVATARS[avatarId];
+        return `<div style="width: 100%; height: 100%; background: ${avatar.gradient}; border-radius: 50%; display: flex; align-items: center; justify-content: center;">${avatar.svg}</div>`;
+      } else if (avatarId && (avatarId.startsWith('data:image/') || avatarId.startsWith('http'))) {
+        return `<img src="${avatarId}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+      } else {
+        const avatar = AVATARS.avatar1;
+        return `<div style="width: 100%; height: 100%; background: ${avatar.gradient}; border-radius: 50%; display: flex; align-items: center; justify-content: center;">${avatar.svg}</div>`;
+      }
+    }
+
+    async function loadAdminUserRegistry() {
+      try {
+        const gridEl = document.getElementById('admin-users-grid');
+        gridEl.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 32px 0;">
+            <span class="spinner" style="width: 24px; height: 24px; border-width: 2.5px; border-top-color: var(--color-purple-light);"></span>
+            <p style="color: var(--color-slate-400); font-size: 13px; margin-top: 10px;">Fetching system accounts...</p>
+          </div>
+        `;
+
+        const querySnapshot = await getDocs(collection(db, "users"));
+        const users = [];
+        querySnapshot.forEach((doc) => {
+          users.push({ id: doc.id, ...doc.data() });
+        });
+
+        gridEl.innerHTML = '';
+        if (users.length === 0) {
+          gridEl.innerHTML = `<p style="grid-column: 1 / -1; color: var(--color-slate-400); font-size: 13.5px; text-align: center; padding: 24px 0;">No registered users found.</p>`;
+          return;
+        }
+
+        users.forEach(user => {
+          const userCard = document.createElement('div');
+          userCard.className = 'admin-user-card';
+          userCard.innerHTML = `
+            <div class="admin-user-avatar">
+              ${getAdminAvatarHTML(user.profilePicSelection)}
+            </div>
+            <div class="admin-user-info">
+              <div class="admin-user-name">${user.username || 'WonderGamer'}</div>
+              <div class="admin-user-email">${user.email || 'No email synced'}</div>
+              <div class="admin-user-date">Joined ${user.joinDate || 'Recently'}</div>
+            </div>
+          `;
+          userCard.addEventListener('click', () => {
+            openAdminInspectModal(user);
+          });
+          gridEl.appendChild(userCard);
+        });
+      } catch (err) {
+        console.error("Failed to load user registry:", err);
+        showToast("Error retrieving registered user list.", "error");
+      }
+    }
+
+    // Modal Inspection handlers
+    const adminInspectModal = document.getElementById('admin-inspect-modal');
+    const closeAdminInspectBtn = document.getElementById('close-admin-inspect-modal-btn');
+    const adminSendResetBtn = document.getElementById('admin-send-reset-btn');
+    const adminDeleteUserBtn = document.getElementById('admin-delete-user-btn');
+
+    function openAdminInspectModal(user) {
+      selectedAdminUser = user;
+      document.getElementById('admin-detail-avatar-container').innerHTML = `
+        <div class="admin-detail-avatar">
+          ${getAdminAvatarHTML(user.profilePicSelection)}
+        </div>
+      `;
+      document.getElementById('admin-inspect-username').textContent = user.username || 'WonderGamer';
+      document.getElementById('admin-inspect-email').textContent = user.email || 'No email synced';
+      document.getElementById('admin-inspect-joindate').textContent = user.joinDate || 'Recently';
+      
+      const uidEl = document.getElementById('admin-inspect-uid');
+      uidEl.textContent = user.id;
+      uidEl.title = user.id;
+
+      adminInspectModal.classList.add('open');
+    }
+
+    function closeAdminInspectModal() {
+      adminInspectModal.classList.remove('open');
+      selectedAdminUser = null;
+    }
+
+    closeAdminInspectBtn.addEventListener('click', closeAdminInspectModal);
+
+    // Admin Dispatch Reset Link
+    adminSendResetBtn.addEventListener('click', async () => {
+      if (!selectedAdminUser || !selectedAdminUser.email) {
+        showToast("Cannot dispatch password recovery link: no email endpoint synced.", "warning");
+        return;
+      }
+
+      const origText = adminSendResetBtn.innerHTML;
+      adminSendResetBtn.disabled = true;
+      adminSendResetBtn.innerHTML = `<span class="spinner"></span> Dispatching link...`;
+
+      try {
+        await sendPasswordResetEmail(auth, selectedAdminUser.email);
+        showToast(`Dispatched recovery credentials link to ${selectedAdminUser.email}!`, "success");
+        closeAdminInspectModal();
+      } catch (err) {
+        console.error("Admin reset error:", err);
+        showToast("Failed to dispatch password recovery mail.", "error");
+      } finally {
+        adminSendResetBtn.disabled = false;
+        adminSendResetBtn.innerHTML = origText;
+      }
+    });
+
+    // Admin Purge user doc from Firestore
+    adminDeleteUserBtn.addEventListener('click', async () => {
+      if (!selectedAdminUser) return;
+      
+      const confirmText = `Are you sure you want to permanently purge "${selectedAdminUser.username || 'this user'}" from Firestore?\n\nThis removes their identity credentials, custom profile photo, and game progress files from the database.`;
+      if (!confirm(confirmText)) return;
+
+      const origText = adminDeleteUserBtn.innerHTML;
+      adminDeleteUserBtn.disabled = true;
+      adminDeleteUserBtn.innerHTML = `<span class="spinner"></span> Purging...`;
+
+      try {
+        await deleteDoc(doc(db, "users", selectedAdminUser.id));
+        showToast(`Successfully purged profile for ${selectedAdminUser.username || 'user'} from the registry!`, "success");
+        closeAdminInspectModal();
+        await loadAdminUserRegistry(); // reload list
+      } catch (err) {
+        console.error("Admin delete doc error:", err);
+        showToast("Failed to delete user profile document.", "error");
+      } finally {
+        adminDeleteUserBtn.disabled = false;
+        adminDeleteUserBtn.innerHTML = origText;
+      }
+    });
+
+
+    // -----------------------------------------------------------
+    // Avatar Display Renderer
+    // -----------------------------------------------------------
+    const avatarDisplay = document.getElementById('avatar-display');
+
+    function renderAvatarDisplay(avatarId) {
+      if (AVATARS[avatarId]) {
+        const avatar = AVATARS[avatarId];
+        avatarDisplay.style.background = avatar.gradient;
+        avatarDisplay.innerHTML = avatar.svg;
+      } else if (avatarId && (avatarId.startsWith('data:image/') || avatarId.startsWith('http'))) {
+        // Custom upload or URL!
+        avatarDisplay.style.background = 'var(--color-slate-800)';
+        avatarDisplay.innerHTML = `<img src="${avatarId}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+      } else {
+        const avatar = AVATARS.avatar1;
+        avatarDisplay.style.background = avatar.gradient;
+        avatarDisplay.innerHTML = avatar.svg;
+      }
+    }
+
+    // -----------------------------------------------------------
+    // Reactive Avatar Picker Selection Setup
+    // -----------------------------------------------------------
+    const avatarBtn = document.getElementById('avatar-btn');
+    const avatarSelector = document.getElementById('avatar-selector');
+    const optionsContainer = document.getElementById('avatar-options-container');
+
+    // Render preset picker options
+    Object.keys(AVATARS).forEach(key => {
+      const opt = AVATARS[key];
+      const optEl = document.createElement('div');
+      optEl.className = `avatar-option ${key === activeAvatarSelection ? 'selected' : ''}`;
+      optEl.id = `opt-${key}`;
+      optEl.innerHTML = `
+        <div class="avatar-option-inner" style="background: ${opt.gradient};">
+          ${opt.svg}
+        </div>
+      `;
+
+      // Select handler
+      optEl.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        if (key === activeAvatarSelection) return;
+
+        // Deselect previous
+        const prevSelected = optionsContainer.querySelector('.avatar-option.selected');
+        if (prevSelected) prevSelected.classList.remove('selected');
+
+        // Select new
+        optEl.classList.add('selected');
+        activeAvatarSelection = key;
+
+        // Visual update display
+        renderAvatarDisplay(key);
+
+        // Sync and update Firestore collection
+        try {
+          const userDocRef = doc(db, "users", currentUserUID);
+          await setDoc(userDocRef, { profilePicSelection: key }, { merge: true });
+          showToast("Identity Stamp updated successfully!", "success");
+        } catch (err) {
+          console.error("Failed to update avatar:", err);
+          showToast("Failed to sync new avatar to profile database.", "error");
+        }
+
+        // Close selector drawer
+        avatarSelector.classList.remove('open');
+      });
+
+      optionsContainer.appendChild(optEl);
+    });
+
+    // Render custom file upload option (7th grid button)
+    const uploadOptEl = document.createElement('div');
+    uploadOptEl.className = 'avatar-option';
+    uploadOptEl.style.border = '1.5px dashed rgba(139, 92, 246, 0.4)';
+    uploadOptEl.style.background = 'rgba(139, 92, 246, 0.06)';
+    uploadOptEl.style.borderRadius = '50%';
+    uploadOptEl.style.aspectRatio = '1';
+    uploadOptEl.style.display = 'flex';
+    uploadOptEl.style.alignItems = 'center';
+    uploadOptEl.style.justify = 'center';
+    uploadOptEl.innerHTML = `
+      <div class="avatar-option-inner" style="color: var(--color-purple-light); display: flex; align-items: center; justify-content: center;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+          <path d="M21 4v6M18 7h6"/>
+        </svg>
+      </div>
+      <input type="file" id="avatar-file-input" accept="image/png, image/jpeg, image/jpg" style="display: none;">
+    `;
+
+    const fileInput = uploadOptEl.querySelector('#avatar-file-input');
+    uploadOptEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+      if (!validTypes.includes(file.type)) {
+        showToast("Invalid format. Please select a PNG, JPG, or JPEG image.", "error");
+        return;
+      }
+
+      showToast("Optimizing profile photo...", "info");
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = async function() {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          const size = 150;
+          canvas.width = size;
+          canvas.height = size;
+
+          let srcX = 0;
+          let srcY = 0;
+          let srcWidth = img.width;
+          let srcHeight = img.height;
+
+          if (img.width > img.height) {
+            srcX = (img.width - img.height) / 2;
+            srcWidth = img.height;
+          } else {
+            srcY = (img.height - img.width) / 2;
+            srcHeight = img.width;
+          }
+
+          ctx.drawImage(img, srcX, srcY, srcWidth, srcHeight, 0, 0, size, size);
+
+          // Convert to compressed JPEG data URL for lightweight Firestore storage
+          const dataURL = canvas.toDataURL('image/jpeg', 0.8);
+
+          try {
+            const userDocRef = doc(db, "users", currentUserUID);
+            await setDoc(userDocRef, { profilePicSelection: dataURL }, { merge: true });
+            
+            renderAvatarDisplay(dataURL);
+            activeAvatarSelection = dataURL;
+            
+            const prevSelected = optionsContainer.querySelector('.avatar-option.selected');
+            if (prevSelected) prevSelected.classList.remove('selected');
+            
+            showToast("Custom profile photo updated!", "success");
+          } catch (err) {
+            console.error("Custom avatar upload error:", err);
+            showToast("Failed to upload custom photo.", "error");
+          }
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+      fileInput.value = '';
+      avatarSelector.classList.remove('open');
+    });
+
+    optionsContainer.appendChild(uploadOptEl);
+
+    // Toggle picker drawer open/close
+    avatarBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      avatarSelector.classList.toggle('open');
+      // Highlight current selected in picker
+      const prevSelected = optionsContainer.querySelector('.avatar-option.selected');
+      if (prevSelected) prevSelected.classList.remove('selected');
+      const activeOption = document.getElementById(`opt-${activeAvatarSelection}`);
+      if (activeOption) activeOption.classList.add('selected');
+    });
+
+    // Close selector when clicking outside
+    document.addEventListener('click', () => {
+      avatarSelector.classList.remove('open');
+    });
+
+    // -----------------------------------------------------------
+    // Logout Action Handler
+    // -----------------------------------------------------------
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+      try {
+        await signOut(auth);
+        showToast("Logged out successfully. See you soon!", "success");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 800);
+      } catch (err) {
+        console.error("Signout failure:", err);
+        showToast("Sign out failed. Please try again.", "error");
+      }
+    });
+
+    // -----------------------------------------------------------
+    // Send Password Reset Email Handler
+    // -----------------------------------------------------------
+    const resetBtn = document.getElementById('reset-password-btn');
+    resetBtn.addEventListener('click', async () => {
+      if (!currentUserEmail) {
+        showToast("No active session email found.", "error");
+        return;
+      }
+
+      const origText = resetBtn.innerHTML;
+      resetBtn.disabled = true;
+      resetBtn.innerHTML = `<span class="spinner"></span> Sending...`;
+
+      try {
+        await sendPasswordResetEmail(auth, currentUserEmail);
+        showToast(`Verification link dispatched successfully to ${currentUserEmail}!`, "success");
+      } catch (err) {
+        console.error("Reset password error:", err);
+        showToast("Failed to send reset link. Please try again later.", "error");
+      } finally {
+        resetBtn.disabled = false;
+        resetBtn.innerHTML = origText;
+      }
+    });
+
+    // -----------------------------------------------------------
+    // Security Account Deletion Modal Handlers
+    // -----------------------------------------------------------
+    const deleteModal = document.getElementById('delete-modal');
+    const openDeleteBtn = document.getElementById('open-delete-modal-btn');
+    const closeDeleteBtn = document.getElementById('close-delete-modal-btn');
+    const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+    const reauthPasswordInput = document.getElementById('reauth-password');
+
+    // Open Modal
+    openDeleteBtn.addEventListener('click', () => {
+      reauthPasswordInput.value = "";
+      deleteModal.classList.add('open');
+      reauthPasswordInput.focus();
+    });
+
+    // Close Modal
+    const closeModal = () => {
+      deleteModal.classList.remove('open');
+    };
+    closeDeleteBtn.addEventListener('click', closeModal);
+
+    // High-Security Deletion Routine
+    confirmDeleteBtn.addEventListener('click', async () => {
+      const password = reauthPasswordInput.value;
+      const user = auth.currentUser;
+
+      if (!password) {
+        showToast("Password required for account deletion.", "warning");
+        reauthPasswordInput.focus();
+        return;
+      }
+
+      if (!user) {
+        showToast("No active authentication session found.", "error");
+        return;
+      }
+
+      const origText = confirmDeleteBtn.innerHTML;
+      confirmDeleteBtn.disabled = true;
+      confirmDeleteBtn.innerHTML = `<span class="spinner"></span> <span>Purging Account...</span>`;
+
+      try {
+        // Re-authenticate user as required by Firebase Auth for account deletion
+        const credential = EmailAuthProvider.credential(user.email, password);
+        await reauthenticateWithCredential(user, credential);
+
+        // 1. First, delete user document from Firestore (so it runs successfully under active authorization)
+        const userDocRef = doc(db, "users", user.uid);
+        await deleteDoc(userDocRef);
+
+        // 2. Permanently delete user from Firebase Auth
+        await deleteUser(user);
+
+        showToast("Your Wonder ID and progress files have been purged successfully.", "success");
+
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1200);
+
+      } catch (err) {
+        console.error("Purging credentials failure:", err);
+        let errorMsg = "Verification failed. Please verify your credentials.";
+        if (err.code === 'auth/wrong-password') {
+          errorMsg = "Incorrect password. Re-authentication failed.";
+        } else if (err.code === 'auth/too-many-requests') {
+          errorMsg = "Security block: too many attempts. Please try again later.";
+        } else if (err.code === 'auth/requires-recent-login') {
+          errorMsg = "Sensitive operation requires a recent session login.";
+        }
+        showToast(errorMsg, "error");
+        confirmDeleteBtn.disabled = false;
+        confirmDeleteBtn.innerHTML = origText;
+      }
+    });
+
+  </script>
+</body>
+
+</html>

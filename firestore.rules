@@ -1,0 +1,26 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // -------------------------------------------------------------
+    // Pre-existing Game Rules (For other studio apps)
+    // -------------------------------------------------------------
+    match /players/{playerId} {
+      allow read, write: if true;
+    }
+    
+    match /game_state/{docId} {
+      allow read, write: if true;
+    }
+
+    // -------------------------------------------------------------
+    // Wonder ID User Profile Rules
+    // -------------------------------------------------------------
+    // Allows any authenticated user to create, read, and update 
+    // their own profile metadata (username, join date, avatar).
+    match /users/{userId} {
+      allow read, write: if request.auth != null && (request.auth.uid == userId || request.auth.token.email == "thomas@vzunderd.nl");
+    }
+  }
+}

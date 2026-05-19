@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ Wonder ID - Universal Authentication</title>
+
+  <!-- Modern Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/jpeg" href="Wonderlight Studios logo.jpeg">
+
+  <style>
+    /* -------------------------------------------------------------
+       CSS Design System & Styles
+       ------------------------------------------------------------- */
+    :root {
+      --color-slate-900: #020617;
+      --color-slate-800: #0f172a;
+      --color-slate-700: #1e293b;
+      --color-slate-400: #94a3b8;
+      --color-purple: #8b5cf6;
+      --color-purple-light: #a78bfa;
+      --color-purple-dark: #7c3aed;
+      --color-white: #ffffff;
+      --font-outfit: 'Outfit', sans-serif;
+      --font-inter: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-inter);
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--color-slate-800) 60%, var(--color-slate-900) 100%);
+      color: #f1f5f9;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    /* Core Card Container */
+    .auth-card {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 440px;
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(139, 92, 246, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .auth-card:hover {
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 50px rgba(139, 92, 246, 0.15);
+    }
+
+    /* Card Header */
+    .card-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .logo-symbol {
+      font-size: 32px;
+      filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.6));
+      animation: logoPulse 2.5s infinite ease-in-out;
+    }
+
+    .logo-text {
+      font-family: var(--font-outfit);
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--color-white);
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+      color: var(--color-slate-400);
+      font-weight: 400;
+    }
+
+    /* Panel Switching Animations */
+    .form-panel {
+      display: none;
+      animation: fadeSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .form-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes logoPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.6));
+      }
+
+      50% {
+        transform: scale(1.08);
+        filter: drop-shadow(0 0 18px rgba(139, 92, 246, 0.9));
+      }
+    }
+
+    /* Inputs and Forms */
+    .input-group {
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      color: var(--color-slate-400);
+      margin-bottom: 8px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      color: #f8fafc;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.25s ease;
+      box-sizing: border-box;
+    }
+
+    .input-field::placeholder {
+      color: rgba(148, 163, 184, 0.4);
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--color-purple);
+      background: rgba(15, 23, 42, 0.85);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+    }
+
+    /* Primary Buttons */
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--color-purple-light) 0%, var(--color-purple-dark) 100%);
+      border: none;
+      border-radius: 12px;
+      color: var(--color-white);
+      font-family: var(--font-outfit);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 18px rgba(124, 58, 237, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(124, 58, 237, 0.5);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Divider between email login and Google button */
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 22px 0;
+      color: var(--color-slate-400);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .divider:not(:empty)::before {
+      margin-right: 16px;
+    }
+
+    .divider:not(:empty)::after {
+      margin-left: 16px;
+    }
+
+    /* Sleek Google Button */
+    .btn-google {
+      width: 100%;
+      padding: 13px;
+      background: var(--color-white);
+      border: none;
+      border-radius: 12px;
+      color: var(--color-slate-900);
+      font-family: var(--font-outfit);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+      margin-top: 10px;
+    }
+
+    .btn-google:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(255, 255, 255, 0.2);
+      background: #f8fafc;
+    }
+
+    .btn-google:active {
+      transform: translateY(0);
+    }
+
+    .btn-google img {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Links and Helpers */
+    .panel-footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 13.5px;
+      color: var(--color-slate-400);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .text-link {
+      color: var(--color-purple-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s, text-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .text-link:hover {
+      color: var(--color-white);
+      text-shadow: 0 0 8px rgba(167, 139, 250, 0.4);
+      text-decoration: underline;
+    }
+
+    /* Loading Spinner */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-radius: 50%;
+      border-top-color: var(--color-white);
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+
+  <!-- ESM Import Maps Configuration -->
+  <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+        "firebase/analytics": "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js",
+        "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+        "firebase/firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+  <!-- Card Frame -->
+  <div class="auth-card">
+    <div class="card-header">
+      <div class="logo-container">
+        <span class="logo-symbol">⚡</span>
+        <span class="logo-text">Wonder ID</span>
+      </div>
+      <p class="card-subtitle" id="card-subtitle">Connect to Wonderlight Studios</p>
+    </div>
+
+    <!-- SIGN IN PANEL -->
+    <div class="form-panel active" id="signin-panel">
+      <form id="signin-form">
+        <div class="input-group">
+          <label class="input-label" for="signin-email">Email Address</label>
+          <input class="input-field" type="email" id="signin-email" placeholder="name@example.com" required
+            autocomplete="email">
+        </div>
+        <div class="input-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0px;">
+            <label class="input-label" for="signin-password">Password</label>
+          </div>
+          <input class="input-field" type="password" id="signin-password" placeholder="••••••••" required
+            autocomplete="current-password">
+        </div>
+        <button class="btn-primary" type="submit" style="margin-top: 10px;">
+          <span>Sign In</span>
+        </button>
+      </form>
+
+      <div class="divider">OR</div>
+
+      <button class="btn-google google-signin-btn" type="button">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
+        <span>Continue with Google</span>
+      </button>
+
+      <div class="panel-footer">
+        <span class="text-link" id="go-to-reset">Forgot Password?</span>
+        <div>Don't have an account? <span class="text-link" id="go-to-signup">Sign Up</span></div>
+      </div>
+    </div>
+
+    <!-- SIGN UP PANEL -->
+    <div class="form-panel" id="signup-panel">
+      <form id="signup-form">
+        <div class="input-group">
+          <label class="input-label" for="signup-username">Username</label>
+          <input class="input-field" type="text" id="signup-username" placeholder="WonderGamer" required
+            autocomplete="username">
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="signup-email">Email Address</label>
+          <input class="input-field" type="email" id="signup-email" placeholder="name@example.com" required
+            autocomplete="email">
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="signup-password">Password (min. 6 chars)</label>
+          <input class="input-field" type="password" id="signup-password" placeholder="••••••••" required
+            autocomplete="new-password">
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="signup-confirm">Confirm Password</label>
+          <input class="input-field" type="password" id="signup-confirm" placeholder="••••••••" required
+            autocomplete="new-password">
+        </div>
+        <button class="btn-primary" type="submit" style="margin-top: 10px;">
+          <span>Create Account</span>
+        </button>
+      </form>
+
+      <div class="divider">OR</div>
+
+      <button class="btn-google google-signin-btn" type="button">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
+        <span>Sign Up with Google</span>
+      </button>
+
+      <div class="panel-footer">
+        <div>Already have an account? <span class="text-link" id="go-to-signin">Sign In</span></div>
+      </div>
+    </div>
+
+    <!-- PASSWORD RESET PANEL -->
+    <div class="form-panel" id="reset-panel">
+      <form id="reset-form">
+        <p
+          style="font-size: 13.5px; color: var(--color-slate-400); line-height: 1.5; margin-bottom: 24px; text-align: center;">
+          Enter your email address and we'll send you a secure link to reset your Wonder ID password.
+        </p>
+        <div class="input-group">
+          <label class="input-label" for="reset-email">Email Address</label>
+          <input class="input-field" type="email" id="reset-email" placeholder="name@example.com" required
+            autocomplete="email">
+        </div>
+        <button class="btn-primary" type="submit" style="margin-top: 10px;">
+          <span>Send Reset Link</span>
+        </button>
+      </form>
+      <div class="panel-footer">
+        <span class="text-link" id="reset-to-signin">Back to Sign In</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Javascript Authentication Router -->
+  <script type="module">
+    import {
+      auth,
+      db,
+      doc,
+      setDoc,
+      getDoc,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      sendPasswordResetEmail,
+      GoogleAuthProvider,
+      signInWithPopup,
+      showToast
+    } from "./app.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    // -----------------------------------------------------------
+    // Auth State Observer
+    // -----------------------------------------------------------
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // Logged-in user should go straight to home.html
+        window.location.href = "home.html";
+      }
+    });
+
+    // -----------------------------------------------------------
+    // Navigation / Form Panel Switcher
+    // -----------------------------------------------------------
+    const panels = {
+      signin: {
+        el: document.getElementById('signin-panel'),
+        subtitle: 'Connect to Wonderlight Studios'
+      },
+      signup: {
+        el: document.getElementById('signup-panel'),
+        subtitle: 'Create your Wonder ID Profile'
+      },
+      reset: {
+        el: document.getElementById('reset-panel'),
+        subtitle: 'Recover your Wonder ID'
+      }
+    };
+
+    const subtitleEl = document.getElementById('card-subtitle');
+
+    function switchPanel(panelName) {
+      Object.keys(panels).forEach(key => {
+        if (key === panelName) {
+          panels[key].el.classList.add('active');
+          subtitleEl.textContent = panels[key].subtitle;
+        } else {
+          panels[key].el.classList.remove('active');
+        }
+      });
+    }
+
+    // Set Switch Event Listeners
+    document.getElementById('go-to-signup').addEventListener('click', () => switchPanel('signup'));
+    document.getElementById('go-to-reset').addEventListener('click', () => switchPanel('reset'));
+    document.getElementById('go-to-signin').addEventListener('click', () => switchPanel('signin'));
+    document.getElementById('reset-to-signin').addEventListener('click', () => switchPanel('signin'));
+
+    // -----------------------------------------------------------
+    // Sign In Submission Handlers
+    // -----------------------------------------------------------
+    const signInForm = document.getElementById('signin-form');
+    signInForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('signin-email').value.trim();
+      const password = document.getElementById('signin-password').value;
+
+      const btn = signInForm.querySelector('button[type="submit"]');
+      const origText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `<span class="spinner"></span> <span>Signing In...</span>`;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        showToast("Signed in successfully! Redirecting...", "success");
+        setTimeout(() => {
+          window.location.href = "home.html";
+        }, 800);
+      } catch (error) {
+        console.error("Sign in failure:", error);
+        let errorMsg = "Wrong password or email. Please check your credentials.";
+        if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+          errorMsg = "Incorrect email address or password.";
+        } else if (error.code === 'auth/invalid-email') {
+          errorMsg = "Invalid email format.";
+        } else if (error.code === 'auth/too-many-requests') {
+          errorMsg = "Account temporarily locked due to failed attempts. Try again later.";
+        }
+        showToast(errorMsg, "error");
+        btn.disabled = false;
+        btn.innerHTML = origText;
+      }
+    });
+
+    // -----------------------------------------------------------
+    // Sign Up Submission Handlers
+    // -----------------------------------------------------------
+    const signUpForm = document.getElementById('signup-form');
+    signUpForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('signup-username').value.trim();
+      const email = document.getElementById('signup-email').value.trim();
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('signup-confirm').value;
+
+      if (!username) {
+        showToast("Username is required.", "warning");
+        return;
+      }
+      if (password !== confirmPassword) {
+        showToast("Passwords do not match.", "warning");
+        return;
+      }
+      if (password.length < 6) {
+        showToast("Password must be at least 6 characters.", "warning");
+        return;
+      }
+
+      const btn = signUpForm.querySelector('button[type="submit"]');
+      const origText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `<span class="spinner"></span> <span>Creating Account...</span>`;
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Custom profiles: random default selection out of 6 profiles
+        const randomPicNum = Math.floor(Math.random() * 6) + 1;
+        const profilePic = `avatar${randomPicNum}`;
+
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const joinDate = new Date().toLocaleDateString('en-US', options);
+
+        // Save profile in Firestore
+        await setDoc(doc(db, "users", user.uid), {
+          username: username,
+          email: user.email,
+          joinDate: joinDate,
+          profilePicSelection: profilePic
+        });
+
+        showToast("Account created successfully! Welcome to Wonder ID.", "success");
+        setTimeout(() => {
+          window.location.href = "home.html";
+        }, 1200);
+
+      } catch (error) {
+        console.error("Sign up failure:", error);
+        let errorMsg = "Could not register account. Please try again.";
+        if (error.code === 'auth/email-already-in-use') {
+          errorMsg = "This email is already registered.";
+        } else if (error.code === 'auth/invalid-email') {
+          errorMsg = "Invalid email format.";
+        } else if (error.code === 'auth/weak-password') {
+          errorMsg = "Password must be at least 6 characters long.";
+        }
+        showToast(errorMsg, "error");
+        btn.disabled = false;
+        btn.innerHTML = origText;
+      }
+    });
+
+    // -----------------------------------------------------------
+    // Password Reset Submission Handlers
+    // -----------------------------------------------------------
+    const resetForm = document.getElementById('reset-form');
+    resetForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('reset-email').value.trim();
+
+      const btn = resetForm.querySelector('button[type="submit"]');
+      const origText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `<span class="spinner"></span> <span>Sending Link...</span>`;
+
+      try {
+        await sendPasswordResetEmail(auth, email);
+        showToast("Password reset link sent to your email!", "success");
+        setTimeout(() => {
+          switchPanel('signin');
+          btn.disabled = false;
+          btn.innerHTML = origText;
+          // Pre-populate sign-in email
+          document.getElementById('signin-email').value = email;
+        }, 1500);
+      } catch (error) {
+        console.error("Password reset failure:", error);
+        let errorMsg = "Failed to send reset link. Please check your email.";
+        if (error.code === 'auth/user-not-found') {
+          errorMsg = "No account found with this email.";
+        } else if (error.code === 'auth/invalid-email') {
+          errorMsg = "Invalid email format.";
+        }
+        showToast(errorMsg, "error");
+        btn.disabled = false;
+        btn.innerHTML = origText;
+      }
+    });
+
+    // -----------------------------------------------------------
+    // Google Authentication Handler (Sign In / Sign Up)
+    // -----------------------------------------------------------
+    const handleGoogleAuth = async () => {
+      const provider = new GoogleAuthProvider();
+      try {
+        const userCredential = await signInWithPopup(auth, provider);
+        const user = userCredential.user;
+
+        // Check if Firestore document already exists
+        const userDocRef = doc(db, "users", user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (!userDocSnap.exists()) {
+          // New account sign-up via Google! Generate a custom profile.
+          const username = user.displayName || user.email.split('@')[0];
+          const randomPicNum = Math.floor(Math.random() * 6) + 1;
+          const profilePic = `avatar${randomPicNum}`;
+          
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          const joinDate = new Date().toLocaleDateString('en-US', options);
+
+          await setDoc(userDocRef, {
+            username: username,
+            email: user.email,
+            joinDate: joinDate,
+            profilePicSelection: profilePic
+          });
+          showToast(`Welcome to Wonder ID, ${username}! Profile created.`, "success");
+        } else {
+          showToast(`Welcome back, ${userDocSnap.data().username || 'Gamer'}!`, "success");
+        }
+        
+        setTimeout(() => {
+          window.location.href = "home.html";
+        }, 1000);
+
+      } catch (error) {
+        console.error("Google Auth failure:", error);
+        let errorMsg = "Google authentication failed. Please try again.";
+        if (error.code === 'auth/popup-closed-by-user') {
+          errorMsg = "Authentication popup closed before completion.";
+        } else if (error.code === 'auth/blocked-by-popup-killer') {
+          errorMsg = "Popup blocked by browser. Please allow popups to sign in with Google.";
+        }
+        showToast(errorMsg, "error");
+      }
+    };
+
+    // Attach to all Google Sign-In buttons
+    document.querySelectorAll('.google-signin-btn').forEach(btn => {
+      btn.addEventListener('click', handleGoogleAuth);
+    });
+  </script>
+</body>
+
+</html>
