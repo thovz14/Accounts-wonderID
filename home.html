@@ -992,13 +992,14 @@
 
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             const defaultDate = new Date().toLocaleDateString('en-US', options);
-            const defaultUsername = user.email.split('@')[0];
+            const defaultUsername = user.displayName || user.email.split('@')[0];
+            const defaultPic = user.photoURL || "avatar1";
 
             await setDoc(doc(db, "users", user.uid), {
               username: defaultUsername,
               email: user.email,
               joinDate: defaultDate,
-              profilePicSelection: "avatar1"
+              profilePicSelection: defaultPic
             });
 
             document.getElementById('profile-username').textContent = defaultUsername;
@@ -1006,7 +1007,7 @@
             document.getElementById('profile-email').textContent = user.email;
             document.getElementById('field-email').textContent = user.email;
             document.getElementById('profile-joindate').textContent = `Joined ${defaultDate}`;
-            activeAvatarSelection = "avatar1";
+            activeAvatarSelection = defaultPic;
             renderAvatarDisplay(activeAvatarSelection);
           }
 

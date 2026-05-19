@@ -666,8 +666,8 @@
         if (!userDocSnap.exists()) {
           // New account sign-up via Google! Generate a custom profile.
           const username = user.displayName || user.email.split('@')[0];
-          const randomPicNum = Math.floor(Math.random() * 6) + 1;
-          const profilePic = `avatar${randomPicNum}`;
+          // Use Google profile photo if available, otherwise pick a random default avatar
+          const profilePic = user.photoURL || `avatar${Math.floor(Math.random() * 6) + 1}`;
           
           const options = { year: 'numeric', month: 'long', day: 'numeric' };
           const joinDate = new Date().toLocaleDateString('en-US', options);
