@@ -11,6 +11,7 @@ import {
   signOut, 
   deleteUser, 
   reauthenticateWithCredential, 
+  reauthenticateWithPopup,
   EmailAuthProvider,
   GoogleAuthProvider,
   signInWithPopup
@@ -174,6 +175,7 @@ export {
   signOut, 
   deleteUser, 
   reauthenticateWithCredential, 
+  reauthenticateWithPopup,
   EmailAuthProvider,
   GoogleAuthProvider,
   signInWithPopup
