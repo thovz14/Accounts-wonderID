@@ -1,105 +1,88 @@
 {
-  "id": "nl.wonderdev.accounts",
   "name": "Wonder Accounts",
   "short_name": "Wonder Accounts",
   "description": "Manage your Wonder ID profile, security settings, subscriptions, and interconnected applications securely.",
-  "lang": "en-US",
+  "lang": "en",
+  "dir": "ltr",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "tabbed",
+    "minimal-ui"
+  ],
   "orientation": "portrait",
   "background_color": "#05050b",
   "theme_color": "#05050b",
-  "categories": ["utilities", "finance"],
+  "categories": [
+    "utilities",
+    "productivity"
+  ],
+  "iarc_rating_id": "e10+",
   "icons": [
     {
-      "src": "icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
+      "src": "./Wonderlight Studios logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-192x192-maskable.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "icons/icon-512x512.png",
+      "src": "./Wonderlight Studios logo.jpeg",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-512x512-maskable.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "maskable"
     }
   ],
   "shortcuts": [
     {
-      "name": "Security Settings",
-      "short_name": "Security",
-      "description": "Manage your biometrics, passwords, and active active sessions",
-      "url": "./security.html",
+      "name": "View Profile",
+      "short_name": "Profile",
+      "description": "Open your profile management directly",
+      "url": "./index.html#profile",
       "icons": [
         {
-          "src": "icons/shortcut-security-96x96.png",
-          "sizes": "96x96",
-          "type": "image/png"
+          "src": "./Wonderlight Studios logo.jpeg",
+          "sizes": "512x512",
+          "type": "image/jpeg"
         }
       ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./Wonderlight Studios logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Wonder Accounts Desktop Dashboard"
     },
     {
-      "name": "Subscription Plan",
-      "short_name": "Billing",
-      "description": "View and upgrade your current premium subscriptions",
-      "url": "./billing.html",
-      "icons": [
-        {
-          "src": "icons/shortcut-billing-96x96.png",
-          "sizes": "96x96",
-          "type": "image/png"
-         }
-      ]
+      "src": "./Wonderlight Studios logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Wonder Accounts Mobile App"
     }
   ],
-  "widgets": [
+  "protocol_handlers": [
     {
-      "name": "Account Overview Widget",
-      "short_name": "Account Status",
-      "description": "Displays your Wonder ID login status and quick security health score.",
-      "tag": "account-overview",
-      "template": "widget-template",
-      "ms_ac_template": "widgets/account-template.json",
-      "data": "widgets/account-data.json",
-      "type": "text/html",
-      "src": "./widget-preview.html",
-      "icons": [
-        {
-          "src": "icons/widget-icon-128x128.png",
-          "sizes": "128x128",
-          "type": "image/png"
-        }
-      ],
-      "screenshots": [
-        {
-          "src": "screenshots/widget-preview.png",
-          "sizes": "600x400",
-          "type": "image/png",
-          "label": "Preview of the Wonder Accounts dashboard widget"
-        }
-      ]
+      "protocol": "web+wonder",
+      "url": "./index.html?uri=%s"
     }
   ],
-  "share_target": {
-    "action": "/share-receiver.html",
-    "method": "GET",
-    "enctype": "application/x-www-form-urlencoded",
-    "params": {
-      "title": "share_title",
-      "text": "share_text",
-      "url": "share_url"
+  "file_handlers": [
+    {
+      "action": "./index.html",
+      "accept": {
+        "application/x-wonderdata": [
+          ".wonder"
+        ]
+      }
     }
-  }
+  ],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "prefer_related_applications": false
 }
