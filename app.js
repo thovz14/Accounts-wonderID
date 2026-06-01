@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { 
@@ -37,13 +36,11 @@ const firebaseConfig = {
   measurementId: "G-1LJMLC30GV"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Ensure local persistence is set for 30-day session caching
 setPersistence(auth, browserLocalPersistence)
   .then(() => {
     console.log("Firebase local persistence set successfully.");
@@ -52,9 +49,6 @@ setPersistence(auth, browserLocalPersistence)
     console.error("Failed to set Firebase persistence:", err);
   });
 
-// -------------------------------------------------------------
-// Custom HTML/CSS Toast Notification System
-// -------------------------------------------------------------
 export function showToast(message, type = 'info') {
   let container = document.getElementById('toast-container');
   if (!container) {
@@ -77,7 +71,6 @@ export function showToast(message, type = 'info') {
 
   const toast = document.createElement('div');
   
-  // Custom styles for modern glassmorphic theme
   Object.assign(toast.style, {
     padding: '14px 20px',
     borderRadius: '14px',
@@ -118,7 +111,6 @@ export function showToast(message, type = 'info') {
     borderColor = '#f59e0b';
     toast.style.boxShadow = '0 12px 30px rgba(245, 158, 11, 0.15)';
   } else {
-    // Info / default
     icon = '⚡';
     bgColor = 'rgba(139, 92, 246, 0.15)';
     borderColor = '#8b5cf6';
@@ -135,7 +127,6 @@ export function showToast(message, type = 'info') {
   
   container.appendChild(toast);
 
-  // Slide-in transition
   setTimeout(() => {
     toast.style.transform = 'translateX(0)';
     toast.style.opacity = '1';
@@ -157,9 +148,18 @@ export function showToast(message, type = 'info') {
   });
 }
 
-// -------------------------------------------------------------
-// Export Core Authentication and Database references
-// -------------------------------------------------------------
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then((registration) => {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      })
+      .catch((error) => {
+        console.log('ServiceWorker registration failed: ', error);
+      });
+  });
+}
+
 export { 
   auth, 
   db, 
