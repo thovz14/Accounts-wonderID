@@ -5,7 +5,10 @@ const ASSETS = [
   './home.html',
   './app.js',
   './manifest.json',
-  './Wonderlight Studios logo.jpeg'
+  './IMG_1811.png',
+  './icon-512x512.png',
+  './maskable-icon-512x512.png',
+  './apple-touch-icon.png'
 ];
 
 self.addEventListener('install', (event) => {
