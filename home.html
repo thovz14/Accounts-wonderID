@@ -20,7 +20,30 @@
     rel="stylesheet">
   <script>
     try {
-      document.documentElement.dataset.theme = localStorage.getItem('wonder-id-theme') === 'light' ? 'light' : 'dark';
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      const savedTheme = localStorage.getItem('wonder-id-theme');
+
+      function applySystemTheme() {
+        const theme = mq.matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = theme;
+        // update UI text if present
+        const modeText = document.getElementById('theme-mode-text');
+        if (modeText) modeText.textContent = theme === 'light' ? 'Light' : 'Dark';
+      }
+
+      if (savedTheme === 'light' || savedTheme === 'dark') {
+        document.documentElement.dataset.theme = savedTheme;
+      } else if (savedTheme === 'system') {
+        applySystemTheme();
+        if (mq.addEventListener) mq.addEventListener('change', applySystemTheme);
+        else if (mq.addListener) mq.addListener(applySystemTheme);
+      } else {
+        // default: follow system and remember as 'system'
+        localStorage.setItem('wonder-id-theme', 'system');
+        applySystemTheme();
+        if (mq.addEventListener) mq.addEventListener('change', applySystemTheme);
+        else if (mq.addListener) mq.addListener(applySystemTheme);
+      }
     } catch (err) {
       document.documentElement.dataset.theme = 'dark';
     }
@@ -75,6 +98,31 @@
       --border-soft: rgba(15, 23, 42, 0.08);
       --border-muted: rgba(15, 23, 42, 0.12);
       --shadow-strong: rgba(59, 130, 246, 0.14);
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme]) {
+        --color-slate-950: #f8fbff;
+        --color-slate-900: #eef6ff;
+        --color-slate-800: #dbeafe;
+        --color-slate-700: #c3d5e8;
+        --color-slate-400: #64748b;
+        --color-purple: #7c3aed;
+        --color-purple-light: #6d28d9;
+        --color-purple-dark: #5b21b6;
+        --color-red: #dc2626;
+        --color-red-dark: #991b1b;
+        --color-emerald: #059669;
+        --color-white: #0f172a;
+        --body-bg: radial-gradient(circle at 20% 0%, #d9fff4 0%, #eef7ff 42%, #f9ecff 100%);
+        --nav-bg: rgba(255, 255, 255, 0.72);
+        --card-bg: rgba(255, 255, 255, 0.76);
+        --soft-panel-bg: rgba(255, 255, 255, 0.62);
+        --selector-bg: rgba(255, 255, 255, 0.65);
+        --border-soft: rgba(15, 23, 42, 0.08);
+        --border-muted: rgba(15, 23, 42, 0.12);
+        --shadow-strong: rgba(59, 130, 246, 0.14);
+      }
     }
 
     * {
@@ -845,8 +893,8 @@
     }
 
     .admin-user-card {
-      background: rgba(30, 41, 59, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: var(--soft-panel-bg);
+      border: 1px solid var(--border-soft);
       border-radius: 16px;
       padding: 16px;
       display: flex;
@@ -858,7 +906,7 @@
 
     .admin-user-card:hover {
       transform: translateY(-2px);
-      background: rgba(30, 41, 59, 0.7);
+      background: var(--card-bg);
       border-color: var(--color-purple-light);
       box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
     }
@@ -1067,7 +1115,7 @@
 
   <!-- Full-Screen Session Shroud to prevent raw DOM flashing -->
   <div id="loading-shroud"
-    style="position: fixed; inset: 0; background: #020617; display: flex; align-items: center; justify-content: center; z-index: 999999; font-family: 'Outfit', sans-serif;">
+    style="position: fixed; inset: 0; background: var(--color-slate-950); display: flex; align-items: center; justify-content: center; z-index: 999999; font-family: 'Outfit', sans-serif;">
     <div style="text-align: center;">
       <div class="spinner"
         style="width: 40px; height: 40px; border-width: 3px; border-top-color: #8b5cf6; margin-bottom: 16px;"></div>
@@ -1242,7 +1290,7 @@
         <!-- Render avatar display -->
       </div>
 
-      <div style="background: rgba(30, 41, 59, 0.4); border-radius: 12px; padding: 16px; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.04); display: flex; flex-direction: column; gap: 12px;">
+      <div style="background: var(--soft-panel-bg); border-radius: 12px; padding: 16px; margin-bottom: 20px; border: 1px solid var(--border-soft); display: flex; flex-direction: column; gap: 12px;">
         <div style="display: flex; justify-content: space-between; font-size: 13px;">
           <span style="color: var(--color-slate-400);">Username:</span>
           <span style="color: var(--color-white); font-weight: 600;" id="admin-inspect-username">---</span>
@@ -1390,7 +1438,21 @@
             document.getElementById('field-email').textContent = user.email;
             document.getElementById('profile-joindate').textContent = `Joined ${data.joinDate || "Recently"}`;
 
-            activeAvatarSelection = data.profilePicSelection || "avatar1";
+            // If Firestore has an explicit profilePicSelection, use it.
+            // Otherwise, prefer the Firebase Auth `photoURL` (Google sign-in), save it back to Firestore, and use it.
+            if (data.profilePicSelection) {
+              activeAvatarSelection = data.profilePicSelection;
+            } else if (user.photoURL) {
+              activeAvatarSelection = user.photoURL;
+              try {
+                await setDoc(userDocRef, { profilePicSelection: user.photoURL }, { merge: true });
+              } catch (err) {
+                console.warn('Failed to persist photoURL to Firestore:', err);
+              }
+            } else {
+              activeAvatarSelection = "avatar1";
+            }
+
             renderAvatarDisplay(activeAvatarSelection);
 
             // Dynamically sync email field if missing in Firestore profile

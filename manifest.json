@@ -1,6 +1,7 @@
 {
   "name": "Wonder Accounts",
   "short_name": "Wonder Accounts",
+  "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -29,6 +30,33 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Sign In",
+      "short_name": "Sign In",
+      "description": "Open the sign in screen",
+      "url": "./index.html"
+    },
+    {
+      "name": "Create Account",
+      "short_name": "Sign Up",
+      "description": "Open the account creation screen",
+      "url": "./index.html?panel=signup"
+    },
+    {
+      "name": "Password Reset",
+      "short_name": "Reset",
+      "description": "Open the password recovery screen",
+      "url": "./index.html?panel=reset"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.wonder.accounts",
+      "url": "https://play.google.com/store/apps/details?id=com.wonder.accounts"
     }
   ],
   "prefer_related_applications": false
