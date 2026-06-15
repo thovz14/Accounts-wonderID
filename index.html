@@ -48,7 +48,8 @@
       document.documentElement.dataset.theme = 'dark';
     }
   </script>
-  <style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" integrity="sha512-3gYvE6L9K9cWg2ZxZ0V+T9gQvG9+Kz7Jb1J6k8b+9RZyZc6YcV5n5K1e2Xn8kqD5" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
     /* -------------------------------------------------------------
        CSS Design System & Styles
        ------------------------------------------------------------- */
@@ -119,17 +120,23 @@
 
     /* Core Card Container */
     .auth-card {
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(139, 92, 246, 0.25);
-      border-radius: 24px;
-      width: 100%;
-      max-width: 440px;
-      padding: 40px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(139, 92, 246, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 440px;
+  padding: 40px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(139, 92, 246, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+html[data-theme="light"] .auth-card {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  color: var(--color-slate-900);
+}
 
     .auth-card:hover {
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 50px rgba(139, 92, 246, 0.15);
@@ -164,6 +171,14 @@
     }
 
     .card-subtitle {
+  font-size: 14px;
+  color: var(--color-slate-400);
+  font-weight: 400;
+}
+
+html[data-theme="light"] .card-subtitle {
+  color: var(--color-slate-900);
+}
       font-size: 14px;
       color: var(--color-slate-400);
       font-weight: 400;
@@ -430,6 +445,7 @@
       }
     }
   </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js" integrity="sha512-1ZxM9V7pK7vNwF2Q5tA8U7n6L0jVbG6p9D3tK5c6eP9b3N8xS6Zz1Q5f6YpL8dG9" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- ESM Import Maps Configuration -->
   <script type="importmap">
