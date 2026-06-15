@@ -441,7 +441,21 @@ html[data-theme="light"] .card-subtitle {
         font-size: 13px;
       }
     }
-  </style>
+  /* Light theme overrides for form inputs */
+html[data-theme="light"] .input-field {
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--color-slate-900);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+html[data-theme="light"] .input-field::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+html[data-theme="light"] .input-field:focus {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--color-purple);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+}
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js" integrity="sha512-1ZxM9V7pK7vNwF2Q5tA8U7n6L0jVbG6p9D3tK5c6eP9b3N8xS6Zz1Q5f6YpL8dG9" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- ESM Import Maps Configuration -->
