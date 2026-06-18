@@ -191,6 +191,12 @@
       transition: all 0.2s;
     }
 
+    html[data-theme="light"] .logout-btn {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: rgba(0, 0, 0, 0.1);
+      color: #475569;
+    }
+
     .logout-btn:hover {
       background: rgba(239, 68, 68, 0.15);
       border-color: rgba(239, 68, 68, 0.3);
@@ -639,7 +645,9 @@
     }
 
     @keyframes twinkle {
-      0%, 100% {
+
+      0%,
+      100% {
         opacity: 0.45;
         transform: scale(0.8);
       }
@@ -779,7 +787,7 @@
     }
 
     .modal-warning-text {
-      color: #fca5a5;
+      color: var(--color-red);
       font-size: 13px;
       line-height: 1.5;
       font-weight: 500;
@@ -788,8 +796,8 @@
     .modal-input {
       width: 100%;
       padding: 12px 14px;
-      background: rgba(2, 6, 23, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--soft-panel-bg);
+      border: 1px solid var(--border-muted);
       border-radius: 10px;
       color: var(--color-white);
       font-size: 14px;
@@ -797,6 +805,11 @@
       font-family: inherit;
       transition: border-color 0.2s;
       box-sizing: border-box;
+    }
+
+    .modal-input::placeholder {
+      color: var(--color-slate-400);
+      opacity: 0.7;
     }
 
     .modal-input:focus {
@@ -813,7 +826,7 @@
     .btn-cancel {
       padding: 11px 20px;
       background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-muted);
       border-radius: 10px;
       color: var(--color-slate-400);
       font-size: 13.5px;
@@ -823,7 +836,7 @@
     }
 
     .btn-cancel:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--soft-panel-bg);
       color: var(--color-white);
     }
 
@@ -874,7 +887,8 @@
     /* Admin Panel Layout */
     .admin-card {
       grid-column: 1 / -1;
-      display: none; /* Only visible for thomas@vzunderd.nl */
+      display: none;
+      /* Only visible for thomas@vzunderd.nl */
     }
 
     .admin-header {
@@ -882,7 +896,7 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 24px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid var(--border-muted);
       padding-bottom: 16px;
     }
 
@@ -1090,11 +1104,24 @@
         gap: 8px;
       }
 
-      .btn-cancel, .btn-confirm-delete {
+      .btn-cancel,
+      .btn-confirm-delete {
         width: 100%;
         justify-content: center;
         padding: 12px;
       }
+    }
+
+    /* ---- Light theme catch-all overrides ---- */
+    html[data-theme="light"] .modal-card {
+      background: #ffffff;
+      border-color: rgba(239, 68, 68, 0.25);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 0 35px rgba(239, 68, 68, 0.08);
+    }
+
+    html[data-theme="light"] .spinner {
+      border-color: rgba(0, 0, 0, 0.15);
+      border-top-color: #8b5cf6;
     }
   </style>
 
@@ -1169,7 +1196,8 @@
 
       <div class="theme-control" aria-label="Theme preference">
         <div class="theme-label">App Theme</div>
-        <button class="theme-switch" id="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
+        <button class="theme-switch" id="theme-toggle" type="button" aria-label="Switch to light mode"
+          aria-pressed="false">
           <span class="theme-switch-track" aria-hidden="true">
             <span class="theme-sunburst"></span>
             <span class="theme-cloud"></span>
@@ -1196,7 +1224,7 @@
         <div class="field-value-card">
           <span id="field-username">Loading...</span>
           <span
-            style="font-size: 11px; padding: 4px 8px; background: rgba(16, 185, 129, 0.15); color: var(--color-emerald); font-weight: 700; border-radius: 6px; text-transform: uppercase; border: 1px solid rgba(16, 185, 129, 0.2);">Firestore
+            style="font-size: 11px; padding: 4px 8px; background: rgba(16, 185, 129, 0.15); color: var(--color-emerald); font-weight: 700; border-radius: 6px; text-transform: uppercase; border: 1px solid rgba(16, 185, 129, 0.2);">Database
             Sync</span>
         </div>
       </div>
@@ -1225,8 +1253,8 @@
           <span>⚠️</span> Danger Zone
         </div>
         <p class="danger-desc">
-          Permanently delete your unified Wonder ID. This will immediately purge your Firestore documents and delete
-          your Firebase authentication credentials. This action cannot be undone.
+          Permanently delete your unified Wonder ID. This will immediately purge your documents and delete
+          your authentication credentials. This action cannot be undone.
         </p>
         <button class="btn-danger" id="open-delete-modal-btn">Delete Wonder ID Account</button>
       </div>
@@ -1237,10 +1265,14 @@
         <h3 class="card-title" style="margin-bottom: 0;">
           <span>👑</span> Wonder ID User Registry
         </h3>
-        <span style="font-size: 11px; padding: 4px 8px; background: rgba(139, 92, 246, 0.15); color: var(--color-purple-light); font-weight: 700; border-radius: 6px; text-transform: uppercase; border: 1px solid rgba(139, 92, 246, 0.2);">Systems Admin</span>
+        <span
+          style="font-size: 11px; padding: 4px 8px; background: rgba(139, 92, 246, 0.15); color: var(--color-purple-light); font-weight: 700; border-radius: 6px; text-transform: uppercase; border: 1px solid rgba(139, 92, 246, 0.2);">Systems
+          Admin</span>
       </div>
       <p style="font-size: 13.5px; color: var(--color-slate-400); margin-bottom: 24px; line-height: 1.6;">
-        Welcome, Administrator. Below are the unified user profiles registered in the Wonder ID identification network. Select a user to inspect their identity, dispatch password recovery instructions, or purge their Firestore profile document.
+        Welcome, Administrator. Below are the unified user profiles registered in the Wonder ID identification network.
+        Select a user to inspect their identity, dispatch password recovery instructions, or purge their Firestore
+        profile document.
       </p>
       <div class="admin-users-grid" id="admin-users-grid">
         <!-- Dynamic content loaded in JS -->
@@ -1285,12 +1317,13 @@
       <h3 class="modal-header">
         <span>🔎</span> Inspect Account Identity
       </h3>
-      
+
       <div id="admin-detail-avatar-container">
         <!-- Render avatar display -->
       </div>
 
-      <div style="background: var(--soft-panel-bg); border-radius: 12px; padding: 16px; margin-bottom: 20px; border: 1px solid var(--border-soft); display: flex; flex-direction: column; gap: 12px;">
+      <div
+        style="background: var(--soft-panel-bg); border-radius: 12px; padding: 16px; margin-bottom: 20px; border: 1px solid var(--border-soft); display: flex; flex-direction: column; gap: 12px;">
         <div style="display: flex; justify-content: space-between; font-size: 13px;">
           <span style="color: var(--color-slate-400);">Username:</span>
           <span style="color: var(--color-white); font-weight: 600;" id="admin-inspect-username">---</span>
@@ -1300,20 +1333,36 @@
           <span style="color: var(--color-white); font-weight: 600;" id="admin-inspect-email">---</span>
         </div>
         <div style="display: flex; justify-content: space-between; font-size: 13px;">
-          <span style="color: var(--color-slate-400);">Join Date:</span>
+          <span style="color: var(--color-slate-400);">Joined:</span>
           <span style="color: var(--color-purple-light); font-weight: 600;" id="admin-inspect-joindate">---</span>
         </div>
         <div style="display: flex; justify-content: space-between; font-size: 13px;">
+          <span style="color: var(--color-slate-400);">Account Created:</span>
+          <span style="color: var(--color-white); font-weight: 500;" id="admin-inspect-created">---</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+          <span style="color: var(--color-slate-400);">Last Updated:</span>
+          <span style="color: var(--color-white); font-weight: 500;" id="admin-inspect-updated">---</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+          <span style="color: var(--color-slate-400);">Email Verified:</span>
+          <span id="admin-inspect-verified">---</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px;">
           <span style="color: var(--color-slate-400);">User ID:</span>
-          <span style="font-family: monospace; font-size: 11.5px; color: var(--color-slate-400); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="admin-inspect-uid">---</span>
+          <span
+            style="font-family: monospace; font-size: 11.5px; color: var(--color-slate-400); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+            id="admin-inspect-uid">---</span>
         </div>
       </div>
 
       <div class="admin-detail-actions">
-        <button class="btn-secondary" id="admin-send-reset-btn" style="width: 100%; display: flex; justify-content: center; gap: 8px; margin: 0;">
+        <button class="btn-secondary" id="admin-send-reset-btn"
+          style="width: 100%; display: flex; justify-content: center; gap: 8px; margin: 0;">
           <span>📧</span> Send Password Reset Link
         </button>
-        <button class="btn-danger" id="admin-delete-user-btn" style="width: 100%; display: flex; justify-content: center; gap: 8px; margin: 0; padding: 12px 20px;">
+        <button class="btn-danger" id="admin-delete-user-btn"
+          style="width: 100%; display: flex; justify-content: center; gap: 8px; margin: 0; padding: 12px 20px;">
           <span>🗑️</span> Purge Firestore Profile
         </button>
       </div>
@@ -1326,23 +1375,7 @@
 
   <!-- Shared Javascript Dashboard Logic -->
   <script type="module">
-    import {
-      auth,
-      db,
-      doc,
-      getDoc,
-      setDoc,
-      deleteDoc,
-      collection,
-      getDocs,
-      signOut,
-      sendPasswordResetEmail,
-      deleteUser,
-      reauthenticateWithPopup,
-      GoogleAuthProvider,
-      showToast
-    } from "./app.js";
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { pb, showToast } from "./app.js";
 
     // -----------------------------------------------------------
     // Avatar Preset Data Dictionary
@@ -1415,101 +1448,85 @@
     // -----------------------------------------------------------
     const shroudEl = document.getElementById('loading-shroud');
 
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
+    async function initUser() {
+      if (!pb.authStore.isValid) {
         // Not authenticated, send back to login index
         window.location.href = "index.html";
-      } else {
-        currentUserUID = user.uid;
+        return;
+      }
+
+      try {
+        // Fetch fresh user data from PocketBase
+        const user = await pb.collection('users').getOne(pb.authStore.model.id);
+
+        currentUserUID = user.id;
         currentUserEmail = user.email;
 
-        // Retrieve custom data from Firestore
-        try {
-          const userDocRef = doc(db, "users", user.uid);
-          const userDocSnap = await getDoc(userDocRef);
+        // Render Profile UI details
+        document.getElementById('profile-username').textContent = user.username || "WonderGamer";
+        document.getElementById('field-username').textContent = user.username || "WonderGamer";
+        document.getElementById('profile-email').textContent = user.email;
+        document.getElementById('field-email').textContent = user.email;
+        document.getElementById('profile-joindate').textContent = `Joined ${formatDate(user.joinDate || user.created)}`;
 
-          if (userDocSnap.exists()) {
-            const data = userDocSnap.data();
-
-            // Render Profile UI details
-            document.getElementById('profile-username').textContent = data.username || "WonderGamer";
-            document.getElementById('field-username').textContent = data.username || "WonderGamer";
-            document.getElementById('profile-email').textContent = user.email;
-            document.getElementById('field-email').textContent = user.email;
-            document.getElementById('profile-joindate').textContent = `Joined ${data.joinDate || "Recently"}`;
-
-            // If Firestore has an explicit profilePicSelection, use it.
-            // Otherwise, prefer the Firebase Auth `photoURL` (Google sign-in), save it back to Firestore, and use it.
-            if (data.profilePicSelection) {
-              activeAvatarSelection = data.profilePicSelection;
-            } else if (user.photoURL) {
-              activeAvatarSelection = user.photoURL;
-              try {
-                await setDoc(userDocRef, { profilePicSelection: user.photoURL }, { merge: true });
-              } catch (err) {
-                console.warn('Failed to persist photoURL to Firestore:', err);
-              }
-            } else {
-              activeAvatarSelection = "avatar1";
-            }
-
-            renderAvatarDisplay(activeAvatarSelection);
-
-            // Dynamically sync email field if missing in Firestore profile
-            if (!data.email) {
-              await setDoc(userDocRef, { email: user.email }, { merge: true });
-            }
-          } else {
-            // Fallback if no Firestore profile was found (e.g. legacy account or direct create)
-            console.warn("Firestore profile document not found. Auto-generating basic file...");
-
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const defaultDate = new Date().toLocaleDateString('en-US', options);
-            const defaultUsername = user.displayName || user.email.split('@')[0];
-            const defaultPic = user.photoURL || "avatar1";
-
-            await setDoc(doc(db, "users", user.uid), {
-              username: defaultUsername,
-              email: user.email,
-              joinDate: defaultDate,
-              profilePicSelection: defaultPic
-            });
-
-            document.getElementById('profile-username').textContent = defaultUsername;
-            document.getElementById('field-username').textContent = defaultUsername;
-            document.getElementById('profile-email').textContent = user.email;
-            document.getElementById('field-email').textContent = user.email;
-            document.getElementById('profile-joindate').textContent = `Joined ${defaultDate}`;
-            activeAvatarSelection = defaultPic;
-            renderAvatarDisplay(activeAvatarSelection);
-          }
-
-          // Administrator Check & Panel Rendering: ONLY thomas@vzunderd.nl
-          if (user.email === "thomas@vzunderd.nl") {
-            document.getElementById('admin-panel').style.display = 'block';
-            await loadAdminUserRegistry();
-          }
-
-          // Shroud fade-out transition
-          shroudEl.style.opacity = '0';
-          shroudEl.style.transition = 'opacity 0.4s ease';
-          setTimeout(() => {
-            shroudEl.remove();
-          }, 450);
-
-        } catch (err) {
-          console.error("Firestore sync failure:", err);
-          showToast("Failed to fetch account profile data.", "error");
-          // Still dismiss shroud to show page or log out
-          shroudEl.remove();
+        if (user.profilePicSelection) {
+          activeAvatarSelection = user.profilePicSelection;
+        } else {
+          activeAvatarSelection = "avatar1";
         }
+
+        renderAvatarDisplay(activeAvatarSelection);
+
+        // Administrator Check & Panel Rendering: ONLY thomas@vzunderd.nl
+        if (user.email === "thomas@vzunderd.nl") {
+          document.getElementById('admin-panel').style.display = 'block';
+          await loadAdminUserRegistry();
+        }
+
+        // Shroud fade-out transition
+        shroudEl.style.opacity = '0';
+        shroudEl.style.transition = 'opacity 0.4s ease';
+        setTimeout(() => {
+          shroudEl.remove();
+        }, 450);
+
+      } catch (err) {
+        console.error("PocketBase sync failure:", err);
+        showToast("Failed to fetch account profile data.", "error");
+        // Still dismiss shroud to show page or log out
+        shroudEl.remove();
       }
-    });
+    }
+
+    // Initialize
+    initUser();
 
     // -----------------------------------------------------------
     // Systems Admin Panel Logic (ONLY for thomas@vzunderd.nl)
     // -----------------------------------------------------------
     let selectedAdminUser = null;
+
+    // -----------------------------------------------------------
+    // Date Formatter — converts ISO strings to clean readable dates
+    // e.g. "2026-03-19 13:24:15.000Z" → "19 mrt. 2026, 13:24"
+    // -----------------------------------------------------------
+    function formatDate(isoStr) {
+      if (!isoStr) return 'Onbekend';
+      try {
+        const d = new Date(isoStr);
+        if (isNaN(d.getTime())) return isoStr;
+        return d.toLocaleString('nl-NL', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        });
+      } catch (e) {
+        return isoStr;
+      }
+    }
 
     function getAdminAvatarHTML(avatarId) {
       if (AVATARS[avatarId]) {
@@ -1533,11 +1550,7 @@
           </div>
         `;
 
-        const querySnapshot = await getDocs(collection(db, "users"));
-        const users = [];
-        querySnapshot.forEach((doc) => {
-          users.push({ id: doc.id, ...doc.data() });
-        });
+        const users = await pb.collection("users").getFullList({ sort: '-created' });
 
         gridEl.innerHTML = '';
         if (users.length === 0) {
@@ -1555,7 +1568,7 @@
             <div class="admin-user-info">
               <div class="admin-user-name">${user.username || 'WonderGamer'}</div>
               <div class="admin-user-email">${user.email || 'No email synced'}</div>
-              <div class="admin-user-date">Joined ${user.joinDate || 'Recently'}</div>
+              <div class="admin-user-date">✨ ${formatDate(user.joinDate || user.created)}</div>
             </div>
           `;
           userCard.addEventListener('click', () => {
@@ -1584,8 +1597,15 @@
       `;
       document.getElementById('admin-inspect-username').textContent = user.username || 'WonderGamer';
       document.getElementById('admin-inspect-email').textContent = user.email || 'No email synced';
-      document.getElementById('admin-inspect-joindate').textContent = user.joinDate || 'Recently';
-      
+      document.getElementById('admin-inspect-joindate').textContent = formatDate(user.joinDate || user.created);
+      document.getElementById('admin-inspect-created').textContent = formatDate(user.created);
+      document.getElementById('admin-inspect-updated').textContent = formatDate(user.updated);
+
+      const verifiedEl = document.getElementById('admin-inspect-verified');
+      verifiedEl.innerHTML = user.verified
+        ? `<span style="color:#10b981;font-weight:700;">✅ Verified</span>`
+        : `<span style="color:#ef4444;font-weight:700;">❌ Not verified</span>`;
+
       const uidEl = document.getElementById('admin-inspect-uid');
       uidEl.textContent = user.id;
       uidEl.title = user.id;
@@ -1603,46 +1623,70 @@
     // Admin Dispatch Reset Link
     adminSendResetBtn.addEventListener('click', async () => {
       if (!selectedAdminUser || !selectedAdminUser.email) {
-        showToast("Cannot dispatch password recovery link: no email endpoint synced.", "warning");
+        showToast("Cannot dispatch password recovery link: no email synced.", "warning");
         return;
       }
 
       const origText = adminSendResetBtn.innerHTML;
       adminSendResetBtn.disabled = true;
-      adminSendResetBtn.innerHTML = `<span class="spinner"></span> Dispatching link...`;
+      adminSendResetBtn.innerHTML = `<span class="spinner"></span> Versturen...`;
 
       try {
-        await sendPasswordResetEmail(auth, selectedAdminUser.email);
-        showToast(`Dispatched recovery credentials link to ${selectedAdminUser.email}!`, "success");
+        await pb.collection('users').requestPasswordReset(selectedAdminUser.email);
+        showToast(`✉️ Reset link verstuurd naar ${selectedAdminUser.email}!`, "success");
         closeAdminInspectModal();
       } catch (err) {
         console.error("Admin reset error:", err);
-        showToast("Failed to dispatch password recovery mail.", "error");
+        const msg = err?.response?.message || err?.message || 'Onbekende fout';
+        if (msg.toLowerCase().includes('smtp') || msg.toLowerCase().includes('mail') || msg.toLowerCase().includes('email')) {
+          showToast("❌ SMTP niet geconfigureerd in PocketBase. Stel een mailserver in via Admin → Settings → Mail.", "error");
+        } else {
+          showToast(`❌ Reset mislukt: ${msg}`, "error");
+        }
       } finally {
         adminSendResetBtn.disabled = false;
         adminSendResetBtn.innerHTML = origText;
       }
     });
 
-    // Admin Purge user doc from Firestore
+    // Admin Purge user
     adminDeleteUserBtn.addEventListener('click', async () => {
       if (!selectedAdminUser) return;
-      
-      const confirmText = `Are you sure you want to permanently purge "${selectedAdminUser.username || 'this user'}" from Firestore?\n\nThis removes their identity credentials, custom profile photo, and game progress files from the database.`;
+
+      const userName = selectedAdminUser.username || selectedAdminUser.email || 'deze gebruiker';
+      const confirmText = `Weet je zeker dat je "${userName}" permanent wilt verwijderen?\n\nDit verwijdert hun account en alle gelinkte data. Dit kan niet ongedaan worden.`;
       if (!confirm(confirmText)) return;
 
       const origText = adminDeleteUserBtn.innerHTML;
       adminDeleteUserBtn.disabled = true;
-      adminDeleteUserBtn.innerHTML = `<span class="spinner"></span> Purging...`;
+      adminDeleteUserBtn.innerHTML = `<span class="spinner"></span> Verwijderen...`;
 
       try {
-        await deleteDoc(doc(db, "users", selectedAdminUser.id));
-        showToast(`Successfully purged profile for ${selectedAdminUser.username || 'user'} from the registry!`, "success");
+        // Use PocketBase superadmin API — normal users cannot delete other users
+        const pbUrl = pb.baseUrl.replace(/\/$/, '');
+        const resp = await fetch(`${pbUrl}/api/collections/users/records/${selectedAdminUser.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': pb.authStore.token
+          }
+        });
+
+        if (!resp.ok) {
+          const errData = await resp.json().catch(() => ({}));
+          throw new Error(errData?.message || `HTTP ${resp.status}`);
+        }
+
+        showToast(`✨ Account van ${userName} succesvol verwijderd!`, "success");
         closeAdminInspectModal();
-        await loadAdminUserRegistry(); // reload list
+        await loadAdminUserRegistry();
       } catch (err) {
-        console.error("Admin delete doc error:", err);
-        showToast("Failed to delete user profile document.", "error");
+        console.error("Admin delete error:", err);
+        const msg = err?.message || 'Onbekende fout';
+        if (msg.includes('403') || msg.toLowerCase().includes('forbidden')) {
+          showToast("❌ Geen toestemming. Controleer de Collection Rules voor 'users' → Delete rule in PocketBase Admin.", "error");
+        } else {
+          showToast(`❌ Verwijderen mislukt: ${msg}`, "error");
+        }
       } finally {
         adminDeleteUserBtn.disabled = false;
         adminDeleteUserBtn.innerHTML = origText;
@@ -1706,10 +1750,9 @@
         // Visual update display
         renderAvatarDisplay(key);
 
-        // Sync and update Firestore collection
+        // Sync and update database
         try {
-          const userDocRef = doc(db, "users", currentUserUID);
-          await setDoc(userDocRef, { profilePicSelection: key }, { merge: true });
+          await pb.collection('users').update(currentUserUID, { profilePicSelection: key });
           showToast("Identity Stamp updated successfully!", "success");
         } catch (err) {
           console.error("Failed to update avatar:", err);
@@ -1763,9 +1806,9 @@
       showToast("Optimizing profile photo...", "info");
 
       const reader = new FileReader();
-      reader.onload = function(event) {
+      reader.onload = function (event) {
         const img = new Image();
-        img.onload = async function() {
+        img.onload = async function () {
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d');
           const size = 150;
@@ -1787,19 +1830,18 @@
 
           ctx.drawImage(img, srcX, srcY, srcWidth, srcHeight, 0, 0, size, size);
 
-          // Convert to compressed JPEG data URL for lightweight Firestore storage
+          // Convert to compressed JPEG data URL for lightweight storage
           const dataURL = canvas.toDataURL('image/jpeg', 0.8);
 
           try {
-            const userDocRef = doc(db, "users", currentUserUID);
-            await setDoc(userDocRef, { profilePicSelection: dataURL }, { merge: true });
-            
+            await pb.collection('users').update(currentUserUID, { profilePicSelection: dataURL });
+
             renderAvatarDisplay(dataURL);
             activeAvatarSelection = dataURL;
-            
+
             const prevSelected = optionsContainer.querySelector('.avatar-option.selected');
             if (prevSelected) prevSelected.classList.remove('selected');
-            
+
             showToast("Custom profile photo updated!", "success");
           } catch (err) {
             console.error("Custom avatar upload error:", err);
@@ -1834,9 +1876,9 @@
     // -----------------------------------------------------------
     // Logout Action Handler
     // -----------------------------------------------------------
-    document.getElementById('logout-btn').addEventListener('click', async () => {
+    document.getElementById('logout-btn').addEventListener('click', () => {
       try {
-        await signOut(auth);
+        pb.authStore.clear();
         showToast("Logged out successfully. See you soon!", "success");
         setTimeout(() => {
           window.location.href = "index.html";
@@ -1853,20 +1895,25 @@
     const resetBtn = document.getElementById('reset-password-btn');
     resetBtn.addEventListener('click', async () => {
       if (!currentUserEmail) {
-        showToast("No active session email found.", "error");
+        showToast("Geen actief sessie-email gevonden.", "error");
         return;
       }
 
       const origText = resetBtn.innerHTML;
       resetBtn.disabled = true;
-      resetBtn.innerHTML = `<span class="spinner"></span> Sending...`;
+      resetBtn.innerHTML = `<span class="spinner"></span> Versturen...`;
 
       try {
-        await sendPasswordResetEmail(auth, currentUserEmail);
-        showToast(`Verification link dispatched successfully to ${currentUserEmail}!`, "success");
+        await pb.collection('users').requestPasswordReset(currentUserEmail);
+        showToast(`✉️ Reset link verstuurd naar ${currentUserEmail}! Check je inbox.`, "success");
       } catch (err) {
         console.error("Reset password error:", err);
-        showToast("Failed to send reset link. Please try again later.", "error");
+        const msg = err?.response?.message || err?.message || '';
+        if (msg.toLowerCase().includes('smtp') || msg.toLowerCase().includes('mail') || msg.toLowerCase().includes('email') || err?.status === 500) {
+          showToast("❌ SMTP niet ingesteld in PocketBase. Ga naar PocketBase Admin → Settings → Mail Settings.", "error");
+        } else {
+          showToast(`❌ Reset mislukt: ${msg || 'Onbekende fout'}`, "error");
+        }
       } finally {
         resetBtn.disabled = false;
         resetBtn.innerHTML = origText;
@@ -1898,23 +1945,22 @@
     // High-Security Deletion Routine
     confirmDeleteBtn.addEventListener('click', async () => {
       const typedEmail = deleteConfirmEmailInput.value.trim().toLowerCase();
-      const user = auth.currentUser;
 
-      if (!user) {
-        showToast("No active authentication session found.", "error");
+      if (!pb.authStore.isValid) {
+        showToast("Geen actieve sessie gevonden.", "error");
         return;
       }
 
-      const accountEmail = (user.email || currentUserEmail || "").trim().toLowerCase();
+      const accountEmail = (currentUserEmail || "").trim().toLowerCase();
 
       if (!typedEmail) {
-        showToast("Email address required for account deletion.", "warning");
+        showToast("Vul je e-mailadres in om je account te verwijderen.", "warning");
         deleteConfirmEmailInput.focus();
         return;
       }
 
       if (!accountEmail || typedEmail !== accountEmail) {
-        showToast("Email address does not match this account.", "error");
+        showToast("E-mailadres komt niet overeen met dit account.", "error");
         deleteConfirmEmailInput.focus();
         deleteConfirmEmailInput.select();
         return;
@@ -1922,29 +1968,32 @@
 
       const origText = confirmDeleteBtn.innerHTML;
       confirmDeleteBtn.disabled = true;
-      confirmDeleteBtn.innerHTML = `<span class="spinner"></span> <span>Purging Account...</span>`;
+      confirmDeleteBtn.innerHTML = `<span class="spinner"></span> <span>Account verwijderen...</span>`;
 
       try {
-        const hasGoogleProvider = user.providerData.some((provider) => provider.providerId === 'google.com');
-
-        if (hasGoogleProvider) {
-          const provider = new GoogleAuthProvider();
-          const credential = await reauthenticateWithPopup(user, provider);
-          const reauthenticatedEmail = (credential.user.email || "").trim().toLowerCase();
-
-          if (reauthenticatedEmail !== accountEmail) {
-            throw new Error("Re-authenticated Google account does not match the active account.");
+        // PocketBase: use the REST API with the current auth token
+        // The SDK delete() may be blocked by collection rules — using fetch gives clearer errors
+        const pbUrl = pb.baseUrl.replace(/\/$/, '');
+        const resp = await fetch(`${pbUrl}/api/collections/users/records/${currentUserUID}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': pb.authStore.token
           }
+        });
+
+        if (!resp.ok) {
+          const errData = await resp.json().catch(() => ({}));
+          const errMsg = errData?.message || `HTTP ${resp.status}`;
+
+          if (resp.status === 403) {
+            throw new Error('403: Verwijdering geblokkeerd door PocketBase API-regels. Stel de Delete rule in op "@request.auth.id = id" via PocketBase Admin → Collections → users → API Rules.');
+          }
+          throw new Error(errMsg);
         }
 
-        // 1. First, delete user document from Firestore (so it runs successfully under active authorization)
-        const userDocRef = doc(db, "users", user.uid);
-        await deleteDoc(userDocRef);
-
-        // 2. Permanently delete user from Firebase Auth
-        await deleteUser(user);
-
-        showToast("Your Wonder ID and progress files have been purged successfully.", "success");
+        // Log out locally
+        pb.authStore.clear();
+        showToast("✨ Je Wonder ID is succesvol verwijderd.", "success");
 
         setTimeout(() => {
           window.location.href = "index.html";
@@ -1952,16 +2001,18 @@
 
       } catch (err) {
         console.error("Purging credentials failure:", err);
-        let errorMsg = "Verification failed. Please verify your credentials.";
-        if (err.code === 'auth/too-many-requests') {
-          errorMsg = "Security block: too many attempts. Please try again later.";
-        } else if (err.code === 'auth/requires-recent-login') {
-          errorMsg = "Sensitive operation requires a recent login. Please sign out, sign in again, then delete your account.";
-        }
-        showToast(errorMsg, "error");
+        showToast(`❌ ${err.message || 'Account verwijderen mislukt. Probeer het later opnieuw.'}`, "error");
         confirmDeleteBtn.disabled = false;
         confirmDeleteBtn.innerHTML = origText;
       }
+    });
+
+    // Close modals when clicking on the backdrop
+    document.getElementById('delete-modal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+    document.getElementById('admin-inspect-modal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeAdminInspectModal();
     });
 
   </script>

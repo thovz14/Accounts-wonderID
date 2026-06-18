@@ -1,53 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { 
-  getAuth, 
-  setPersistence, 
-  browserLocalPersistence, 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  sendPasswordResetEmail, 
-  signOut, 
-  deleteUser, 
-  reauthenticateWithCredential, 
-  reauthenticateWithPopup,
-  EmailAuthProvider,
-  GoogleAuthProvider,
-  signInWithPopup
-} from "firebase/auth";
-import { 
-  getFirestore, 
-  doc, 
-  setDoc, 
-  getDoc, 
-  deleteDoc,
-  collection,
-  getDocs
-} from "firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBRpbQS2jN_Zp7XzKWYkM0Png4K4yzA9oc",
-  authDomain: "familygames-3d0d2.firebaseapp.com",
-  databaseURL: "https://familygames-3d0d2-default-rtdb.firebaseio.com",
-  projectId: "familygames-3d0d2",
-  storageBucket: "familygames-3d0d2.firebasestorage.app",
-  messagingSenderId: "326491635543",
-  appId: "1:326491635543:web:1ceb365989c448f2c20812",
-  measurementId: "G-1LJMLC30GV"
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-setPersistence(auth, browserLocalPersistence)
-  .then(() => {
-    console.log("Firebase local persistence set successfully.");
-  })
-  .catch((err) => {
-    console.error("Failed to set Firebase persistence:", err);
-  });
+import PocketBase from 'https://cdn.jsdelivr.net/npm/pocketbase@0.21.1/+esm';
+export const pb = new PocketBase('http://192.168.88.73:8090');
 
 export function showToast(message, type = 'info') {
   let container = document.getElementById('toast-container');
@@ -69,19 +21,24 @@ export function showToast(message, type = 'info') {
     document.body.appendChild(container);
   }
 
+  // Detect current theme
+  const isLight = document.documentElement.dataset.theme === 'light';
+
   const toast = document.createElement('div');
-  
+
   Object.assign(toast.style, {
     padding: '14px 20px',
     borderRadius: '14px',
-    color: '#f8fafc',
+    color: isLight ? '#0f172a' : '#f8fafc',
     fontSize: '14px',
     fontWeight: '500',
     fontFamily: "'Outfit', 'Inter', sans-serif",
     display: 'flex',
     alignItems: 'center',
     gap: '12px',
-    boxShadow: '0 12px 30px rgba(2, 6, 23, 0.6)',
+    boxShadow: isLight
+      ? '0 8px 24px rgba(0, 0, 0, 0.12)'
+      : '0 12px 30px rgba(2, 6, 23, 0.6)',
     backdropFilter: 'blur(16px)',
     transform: 'translateX(120%)',
     transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease, margin 0.3s ease',
@@ -92,39 +49,54 @@ export function showToast(message, type = 'info') {
   });
 
   let icon = '⚡';
-  let bgColor = 'rgba(15, 23, 42, 0.85)';
-  let borderColor = 'rgba(139, 92, 246, 0.3)';
-  
+  let bgColor, borderColor;
+
   if (type === 'success') {
     icon = '✨';
-    bgColor = 'rgba(16, 185, 129, 0.15)';
+    bgColor = isLight ? 'rgba(16, 185, 129, 0.12)' : 'rgba(16, 185, 129, 0.15)';
     borderColor = '#10b981';
-    toast.style.boxShadow = '0 12px 30px rgba(16, 185, 129, 0.15)';
+    toast.style.boxShadow = isLight
+      ? '0 8px 24px rgba(16, 185, 129, 0.2)'
+      : '0 12px 30px rgba(16, 185, 129, 0.15)';
   } else if (type === 'error') {
     icon = '💥';
-    bgColor = 'rgba(239, 68, 68, 0.15)';
+    bgColor = isLight ? 'rgba(239, 68, 68, 0.1)' : 'rgba(239, 68, 68, 0.15)';
     borderColor = '#ef4444';
-    toast.style.boxShadow = '0 12px 30px rgba(239, 68, 68, 0.15)';
+    toast.style.boxShadow = isLight
+      ? '0 8px 24px rgba(239, 68, 68, 0.18)'
+      : '0 12px 30px rgba(239, 68, 68, 0.15)';
   } else if (type === 'warning') {
     icon = '⚠️';
-    bgColor = 'rgba(245, 158, 11, 0.15)';
+    bgColor = isLight ? 'rgba(245, 158, 11, 0.1)' : 'rgba(245, 158, 11, 0.15)';
     borderColor = '#f59e0b';
-    toast.style.boxShadow = '0 12px 30px rgba(245, 158, 11, 0.15)';
+    toast.style.boxShadow = isLight
+      ? '0 8px 24px rgba(245, 158, 11, 0.18)'
+      : '0 12px 30px rgba(245, 158, 11, 0.15)';
   } else {
     icon = '⚡';
-    bgColor = 'rgba(139, 92, 246, 0.15)';
+    bgColor = isLight ? 'rgba(139, 92, 246, 0.1)' : 'rgba(139, 92, 246, 0.15)';
     borderColor = '#8b5cf6';
-    toast.style.boxShadow = '0 12px 30px rgba(139, 92, 246, 0.15)';
+    toast.style.boxShadow = isLight
+      ? '0 8px 24px rgba(139, 92, 246, 0.2)'
+      : '0 12px 30px rgba(139, 92, 246, 0.15)';
   }
 
-  toast.style.background = bgColor;
+  // Light mode: solid white base so text is always readable
+  if (isLight) {
+    bgColor = bgColor.replace(/rgba\(([^)]+),\s*[\d.]+\)/, 'rgba($1, 0.92)');
+    toast.style.background = `linear-gradient(135deg, #ffffff, #f8fafc)`;
+    toast.style.backgroundImage = 'none';
+    toast.style.background = `rgba(255, 255, 255, 0.95)`;
+  }
+
+  toast.style.background = isLight ? 'rgba(255, 255, 255, 0.97)' : bgColor;
   toast.style.border = `1px solid ${borderColor}`;
 
   toast.innerHTML = `
-    <span style="font-size: 20px; display: inline-flex; align-items: center; justify-content: center; animation: pulse 2s infinite;">${icon}</span>
+    <span style="font-size: 20px; display: inline-flex; align-items: center; justify-content: center;">${icon}</span>
     <div style="flex: 1; line-height: 1.4;">${message}</div>
   `;
-  
+
   container.appendChild(toast);
 
   setTimeout(() => {
@@ -159,24 +131,3 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
-
-export { 
-  auth, 
-  db, 
-  doc, 
-  setDoc, 
-  getDoc, 
-  deleteDoc, 
-  collection,
-  getDocs,
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  sendPasswordResetEmail, 
-  signOut, 
-  deleteUser, 
-  reauthenticateWithCredential, 
-  reauthenticateWithPopup,
-  EmailAuthProvider,
-  GoogleAuthProvider,
-  signInWithPopup
-};
