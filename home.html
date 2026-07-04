@@ -53,14 +53,14 @@
       --color-white: #ffffff;
       --text-main: #fbebda;
       --text-muted: rgba(255, 255, 255, 0.78);
-      --body-bg: radial-gradient(circle at 14% 2%, rgba(245, 226, 190, 0.55), transparent 16%), radial-gradient(circle at 90% 8%, rgba(255, 232, 180, 0.36), transparent 14%), radial-gradient(circle at 70% 96%, rgba(255, 194, 108, 0.18), transparent 30%), #ebddc6;
-      --nav-bg: rgba(255, 255, 255, 0.7);
-      --card-bg: rgba(255, 255, 255, 0.86);
-      --soft-panel-bg: rgba(255, 255, 255, 0.72);
-      --selector-bg: rgba(255, 255, 255, 0.78);
-      --border-soft: rgba(15, 23, 42, 0.08);
-      --border-muted: rgba(15, 23, 42, 0.12);
-      --shadow-strong: rgba(0, 0, 0, 0.3);
+      --body-bg: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--color-slate-900) 60%, var(--color-slate-950) 100%);
+      --nav-bg: rgba(15, 23, 42, 0.5);
+      --card-bg: rgba(15, 23, 42, 0.65);
+      --soft-panel-bg: rgba(15, 23, 42, 0.4);
+      --selector-bg: rgba(15, 23, 42, 0.5);
+      --border-soft: rgba(255, 255, 255, 0.06);
+      --border-muted: rgba(255, 255, 255, 0.12);
+      --shadow-strong: rgba(0, 0, 0, 0.35);
       --font-outfit: 'Outfit', sans-serif;
       --font-inter: 'Inter', sans-serif;
     }
@@ -70,24 +70,24 @@
       --color-slate-900: #0f172a;
       --color-slate-800: #1e293b;
       --color-slate-700: #334155;
-      --color-slate-400: #64748b;
+      --color-slate-400: #55647a;
       --color-purple: #ffc33f;
       --color-purple-light: #fff1a1;
-      --color-purple-dark: #ff9f1b;
+      --color-purple-dark: #d97706; /* darker amber/gold for better light mode contrast */
       --color-red: #dc2626;
       --color-red-dark: #991b1b;
       --color-emerald: #059669;
-      --color-white: #ffffff;
+      --color-white: #0c1726; /* map white variables to dark text where appropriate in light theme */
       --text-main: #0c1726;
       --text-muted: rgba(15, 23, 42, 0.82);
       --body-bg: #fbebda;
       --nav-bg: rgba(255, 255, 255, 0.72);
-      --card-bg: rgba(255, 255, 255, 0.76);
+      --card-bg: rgba(255, 255, 255, 0.82);
       --soft-panel-bg: rgba(255, 255, 255, 0.62);
       --selector-bg: rgba(255, 255, 255, 0.65);
       --border-soft: rgba(15, 23, 42, 0.08);
-      --border-muted: rgba(15, 23, 42, 0.12);
-      --shadow-strong: rgba(255, 159, 27, 0.14);
+      --border-muted: rgba(15, 23, 42, 0.15);
+      --shadow-strong: rgba(255, 159, 27, 0.06);
     }
 
     html[data-theme="light"] body {
@@ -98,25 +98,27 @@
     @media (prefers-color-scheme: light) {
       :root:not([data-theme]) {
         --color-slate-950: #fef9e7;
-        --color-slate-900: #fff7d3;
-        --color-slate-800: #ffefd1;
-        --color-slate-700: #f8e39d;
-        --color-slate-400: #64748b;
+        --color-slate-900: #0f172a;
+        --color-slate-800: #1e293b;
+        --color-slate-700: #334155;
+        --color-slate-400: #55647a;
         --color-purple: #ffc33f;
         --color-purple-light: #fff1a1;
-        --color-purple-dark: #ff9f1b;
+        --color-purple-dark: #d97706;
         --color-red: #dc2626;
         --color-red-dark: #991b1b;
         --color-emerald: #059669;
-        --color-white: #0f172a;
-        --body-bg: radial-gradient(circle at 20% 0%, #ffed92 0%, #ffed92 42%, #ffe26e 100%);
+        --color-white: #0c1726;
+        --text-main: #0c1726;
+        --text-muted: rgba(15, 23, 42, 0.82);
+        --body-bg: #fbebda;
         --nav-bg: rgba(255, 255, 255, 0.72);
-        --card-bg: rgba(255, 255, 255, 0.76);
+        --card-bg: rgba(255, 255, 255, 0.82);
         --soft-panel-bg: rgba(255, 255, 255, 0.62);
         --selector-bg: rgba(255, 255, 255, 0.65);
         --border-soft: rgba(15, 23, 42, 0.08);
-        --border-muted: rgba(15, 23, 42, 0.12);
-        --shadow-strong: rgba(255, 159, 27, 0.14);
+        --border-muted: rgba(15, 23, 42, 0.15);
+        --shadow-strong: rgba(255, 159, 27, 0.06);
       }
     }
 
@@ -217,24 +219,18 @@
 
     /* Cards Structure */
     .dashboard-card {
-      background: rgba(255, 255, 255, 0.9);
+      background: var(--card-bg);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.32);
+      border: 1.5px solid var(--border-muted);
       border-radius: 28px;
       padding: 32px;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 18px 45px var(--shadow-strong);
       transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, transform 0.2s ease;
     }
 
     .dashboard-card:hover {
       transform: translateY(-1px);
-    }
-
-    html[data-theme="light"] .dashboard-card {
-      background: rgba(255, 255, 255, 0.96);
-      border-color: rgba(15, 23, 42, 0.08);
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
     }
 
     .card-title {
@@ -352,14 +348,15 @@
 
     .field-value-card {
       padding: 14px 16px;
-      background: transparent;
-      border: none;
-      border-radius: 0;
+      background: var(--soft-panel-bg);
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
       color: var(--text-main);
       font-size: 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      transition: all 0.3s ease;
     }
 
     @keyframes twinkle {
@@ -404,11 +401,12 @@
 
     /* Danger zone */
     .danger-zone {
-      border: none;
-      background: transparent;
-      border-radius: 0;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      background: rgba(239, 68, 68, 0.04);
+      border-radius: 20px;
       padding: 20px;
       margin-top: 32px;
+      transition: all 0.3s ease;
     }
 
     .danger-title {
@@ -432,20 +430,26 @@
 
     .btn-danger {
       padding: 10px 16px;
-      background: transparent;
-      border: none;
-      border-radius: 0;
+      background: rgba(239, 68, 68, 0.05);
+      border: 1.5px solid rgba(239, 68, 68, 0.3);
+      border-radius: 12px;
       color: var(--color-red);
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.25s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
     .btn-danger:hover {
-      background: rgba(239, 68, 68, 0.08);
-      color: var(--color-white);
-      box-shadow: none;
+      background: var(--color-red);
+      color: #ffffff !important;
+      border-color: var(--color-red);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
     }
 
     /* HIGH-SECURITY ACCOUNT DELETION MODAL */
@@ -471,13 +475,13 @@
     }
 
     .modal-card {
-      background: rgba(15, 23, 42, 0.92);
-      border: none;
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-muted);
       border-radius: 20px;
       width: 100%;
       max-width: 440px;
       padding: 32px;
-      box-shadow: none;
+      box-shadow: 0 20px 50px var(--shadow-strong);
       transform: translateY(20px);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -638,9 +642,9 @@
     }
 
     .admin-user-card {
-      background: transparent;
-      border: none;
-      border-radius: 0;
+      background: var(--soft-panel-bg);
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
       padding: 16px;
       display: flex;
       align-items: center;
@@ -650,10 +654,10 @@
     }
 
     .admin-user-card:hover {
-      transform: none;
-      background: transparent;
-      border-color: transparent;
-      box-shadow: none;
+      transform: translateY(-2px);
+      background: var(--card-bg);
+      border-color: var(--color-purple-dark);
+      box-shadow: 0 8px 24px var(--shadow-strong);
     }
 
     .admin-user-avatar {
@@ -689,7 +693,7 @@
     .admin-user-name {
       font-size: 14.5px;
       font-weight: 700;
-      color: var(--color-white);
+      color: var(--text-main);
       margin-bottom: 2px;
       white-space: nowrap;
       overflow: hidden;
@@ -707,8 +711,8 @@
 
     .admin-user-date {
       font-size: 10.5px;
-      color: var(--color-purple-light);
-      font-weight: 500;
+      color: var(--color-purple-dark);
+      font-weight: 600;
     }
 
     /* Admin Modal Details */
@@ -846,8 +850,8 @@
     /* ---- Light theme catch-all overrides ---- */
     html[data-theme="light"] .modal-card {
       background: #ffffff;
-      border-color: rgba(239, 68, 68, 0.25);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 0 35px rgba(239, 68, 68, 0.08);
+      border-color: var(--border-muted);
+      box-shadow: 0 25px 50px rgba(15, 23, 42, 0.1), 0 0 35px rgba(15, 23, 42, 0.05);
     }
 
     html[data-theme="light"] .spinner {
@@ -1027,27 +1031,27 @@
         <!-- Render avatar display -->
       </div>
 
-      <div
-        style="background: transparent; border-radius: 12px; padding: 16px; margin-bottom: 20px; border: none; display: flex; flex-direction: column; gap: 12px;">
+      <div class="field-value-card"
+        style="flex-direction: column; gap: 12px; align-items: stretch; margin-bottom: 20px;">
         <div style="display: flex; justify-content: space-between; font-size: 13px;">
           <span style="color: var(--color-slate-400);">Username:</span>
-          <span style="color: var(--color-white); font-weight: 600;" id="admin-inspect-username">---</span>
+          <span style="color: var(--text-main); font-weight: 600;" id="admin-inspect-username">---</span>
         </div>
         <div style="display: flex; justify-content: space-between; font-size: 13px;">
           <span style="color: var(--color-slate-400);">Email Address:</span>
-          <span style="color: var(--color-white); font-weight: 600;" id="admin-inspect-email">---</span>
+          <span style="color: var(--text-main); font-weight: 600;" id="admin-inspect-email">---</span>
         </div>
         <div style="display: flex; justify-content: space-between; font-size: 13px;">
           <span style="color: var(--color-slate-400);">Joined:</span>
-          <span style="color: var(--color-purple-light); font-weight: 600;" id="admin-inspect-joindate">---</span>
+          <span style="color: var(--color-purple-dark); font-weight: 600;" id="admin-inspect-joindate">---</span>
         </div>
         <div style="display: flex; justify-content: space-between; font-size: 13px;">
           <span style="color: var(--color-slate-400);">Account Created:</span>
-          <span style="color: var(--color-white); font-weight: 500;" id="admin-inspect-created">---</span>
+          <span style="color: var(--text-main); font-weight: 500;" id="admin-inspect-created">---</span>
         </div>
         <div style="display: flex; justify-content: space-between; font-size: 13px;">
           <span style="color: var(--color-slate-400);">Last Updated:</span>
-          <span style="color: var(--color-white); font-weight: 500;" id="admin-inspect-updated">---</span>
+          <span style="color: var(--text-main); font-weight: 500;" id="admin-inspect-updated">---</span>
         </div>
         <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
           <span style="color: var(--color-slate-400);">Email Verified:</span>
@@ -1061,9 +1065,9 @@
         </div>
       </div>
 
-      <div class="admin-detail-actions">
+      <div class="admin-detail-actions" style="display: flex; flex-direction: column; gap: 12px;">
         <button class="btn-secondary" id="admin-send-reset-btn"
-          style="width: 100%; display: flex; justify-content: center; gap: 8px; margin: 0; background: transparent; border: none;">
+          style="width: 100%; display: flex; justify-content: center; gap: 8px; margin: 0;">
           <span>📧</span> Send Password Reset Link
         </button>
         <button class="btn-danger" id="admin-delete-user-btn"

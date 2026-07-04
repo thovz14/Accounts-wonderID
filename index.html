@@ -37,8 +37,9 @@
       document.documentElement.dataset.theme = 'dark';
     }
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
     /* -------------------------------------------------------------
        CSS Design System & Styles
        ------------------------------------------------------------- */
@@ -78,7 +79,7 @@
       padding: 0;
     }
 
-    
+
 
     @media (prefers-color-scheme: light) {
       :root:not([data-theme]) {
@@ -493,7 +494,8 @@
     @media (max-width: 480px) {
       body {
         padding: 16px;
-        align-items: flex-start; /* Better scrolling on short mobile screens */
+        align-items: flex-start;
+        /* Better scrolling on short mobile screens */
         padding-top: 32px;
         padding-bottom: 32px;
       }
@@ -516,7 +518,8 @@
         font-size: 13.5px;
       }
 
-      .btn-primary, .btn-google {
+      .btn-primary,
+      .btn-google {
         padding: 12px;
         font-size: 14.5px;
       }
@@ -530,154 +533,231 @@
         font-size: 13px;
       }
     }
-  /* Light theme overrides for form inputs */
-  html[data-theme="light"] .input-field {
-    background: rgba(255, 255, 255, 0.88);
-    color: #0f172a;
-    border-color: rgba(0, 0, 0, 0.12);
-  }
-  html[data-theme="light"] .input-field::placeholder {
-    color: rgba(15, 23, 42, 0.4);
-  }
-  html[data-theme="light"] .input-field:focus {
-    background: rgba(255, 255, 255, 0.98);
-    border-color: var(--color-purple);
-    box-shadow: 0 0 0 3px rgba(255, 159, 27, 0.22);
-  }
 
-  .otp-code-group {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(50px, 1fr));
-    gap: 10px;
-    margin: 24px 0;
-  }
+    /* Light theme overrides for form inputs */
+    html[data-theme="light"] .input-field {
+      background: rgba(255, 255, 255, 0.88);
+      color: #0f172a;
+      border-color: rgba(0, 0, 0, 0.12);
+    }
 
-  .otp-input {
-    width: 100%;
-    min-height: 60px;
-    border-radius: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--text-main);
-    font-size: 24px;
-    text-align: center;
-    outline: none;
-    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-  }
+    html[data-theme="light"] .input-field::placeholder {
+      color: rgba(15, 23, 42, 0.4);
+    }
 
-  .otp-input:focus {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: #ff9f1b;
-  }
+    html[data-theme="light"] .input-field:focus {
+      background: rgba(255, 255, 255, 0.98);
+      border-color: var(--color-purple);
+      box-shadow: 0 0 0 3px rgba(255, 159, 27, 0.22);
+    }
 
-  .upload-dropzone {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    border-radius: 22px;
-    border: 2px dashed rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.03);
-    padding: 30px 20px;
-    cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease;
-    min-height: 240px;
-  }
+    .otp-code-group {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(50px, 1fr));
+      gap: 10px;
+      margin: 24px 0;
+    }
 
-  .upload-dropzone.dragover,
-  .upload-dropzone:hover {
-    background: rgba(255, 159, 27, 0.08);
-    border-color: #ff9f1b;
-  }
+    .otp-input {
+      width: 100%;
+      min-height: 60px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      font-size: 24px;
+      text-align: center;
+      outline: none;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
 
-  .upload-preview {
-    width: 100px;
-    height: 100px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 22px;
-    overflow: hidden;
-    display: block;
-    box-shadow: none;
-  }
+    .otp-input:focus {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: #ff9f1b;
+    }
 
-  .upload-preview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+    .upload-dropzone {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      border-radius: 22px;
+      border: 2px dashed rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 30px 20px;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      min-height: 240px;
+    }
 
-  .onboarding-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-  }
+    .upload-dropzone.dragover,
+    .upload-dropzone:hover {
+      background: rgba(255, 159, 27, 0.08);
+      border-color: #ff9f1b;
+    }
 
-  .onboarding-progress {
-    font-size: 12px;
-    color: var(--color-purple-light);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 10px;
-  }
+    .upload-preview {
+      width: 100px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 22px;
+      overflow: hidden;
+      display: block;
+      box-shadow: none;
+    }
 
-  .onboarding-step {
-    display: none;
-  }
+    .upload-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-  .onboarding-step.active {
-    display: block;
-  }
+    .onboarding-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
 
-  .onboarding-step strong {
-    display: block;
-    margin-bottom: 4px;
-    color: var(--text-main);
-  }
+    .onboarding-step-indicators {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 2px;
+    }
 
-  html[data-theme="light"] .upload-dropzone {
-    background: rgba(15, 23, 42, 0.02);
-    border: 2px dashed rgba(15, 23, 42, 0.15);
-  }
-  html[data-theme="light"] .upload-dropzone.dragover,
-  html[data-theme="light"] .upload-dropzone:hover {
-    background: rgba(255, 159, 27, 0.06);
-    border-color: #ff9f1b;
-  }
+    .onboarding-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border-muted, rgba(255, 255, 255, 0.2));
+      transition: background 0.35s ease, transform 0.25s ease;
+    }
 
-  html[data-theme="light"] .otp-input {
-    background: #ffffff;
-    color: var(--text-main);
-    border: 1px solid rgba(15, 23, 42, 0.15);
-  }
-  html[data-theme="light"] .otp-input:focus {
-    border-color: #ff9f1b;
-  }
+    .onboarding-dot.active {
+      background: var(--color-purple);
+      transform: scale(1.25);
+    }
 
-  html[data-theme="light"] .upload-preview {
-    background: rgba(15, 23, 42, 0.04);
-    border: 1px solid rgba(15, 23, 42, 0.12);
-  }
+    .onboarding-dot-line {
+      width: 28px;
+      height: 2px;
+      background: var(--border-soft, rgba(255, 255, 255, 0.1));
+      margin: 0 4px;
+    }
 
-  html[data-theme="light"] .btn-google {
-    background: #ffffff;
-    color: #0f172a;
-    box-shadow: none;
-  }
-  html[data-theme="light"] .btn-google:hover {
-    background: #f1f5f9;
-    box-shadow: none;
-  }
+    .onboarding-progress {
+      font-size: 11px;
+      color: var(--color-purple-dark);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      text-align: center;
+      margin-bottom: 4px;
+    }
 
-  html[data-theme="light"] .panel-footer {
-    color: var(--text-muted);
-  }
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    .onboarding-step {
+      display: none;
+    }
+
+    .onboarding-step.active {
+      display: block;
+    }
+
+    .onboarding-step strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-main);
+    }
+
+    /* Avatar preview ring on profile step */
+    .onboarding-avatar-ring {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      margin: 0 auto 6px;
+      background: var(--soft-panel-bg, rgba(255, 255, 255, 0.1));
+      border: 3px solid var(--color-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 0 0 5px rgba(255, 195, 63, 0.12);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .onboarding-avatar-ring img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .onboarding-avatar-inner {
+      font-size: 38px;
+      font-weight: 800;
+      font-family: var(--font-outfit);
+      color: var(--color-purple);
+      line-height: 1;
+      user-select: none;
+      text-transform: uppercase;
+    }
+
+    .onboarding-avatar-status {
+      font-size: 12px;
+      color: var(--color-slate-400);
+      margin-top: 4px;
+      margin-bottom: 0;
+      transition: color 0.3s ease;
+    }
+
+    html[data-theme="light"] .upload-dropzone {
+      background: rgba(15, 23, 42, 0.02);
+      border: 2px dashed rgba(15, 23, 42, 0.15);
+    }
+
+    html[data-theme="light"] .upload-dropzone.dragover,
+    html[data-theme="light"] .upload-dropzone:hover {
+      background: rgba(255, 159, 27, 0.06);
+      border-color: #ff9f1b;
+    }
+
+    html[data-theme="light"] .otp-input {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid rgba(15, 23, 42, 0.15);
+    }
+
+    html[data-theme="light"] .otp-input:focus {
+      border-color: #ff9f1b;
+    }
+
+    html[data-theme="light"] .upload-preview {
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(15, 23, 42, 0.12);
+    }
+
+    html[data-theme="light"] .btn-google {
+      background: #ffffff;
+      color: #0f172a;
+      box-shadow: none;
+    }
+
+    html[data-theme="light"] .btn-google:hover {
+      background: #f1f5f9;
+      box-shadow: none;
+    }
+
+    html[data-theme="light"] .panel-footer {
+      color: var(--text-muted);
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer"></script>
 
   <!-- ESM Import Maps Configuration -->
   <script type="importmap">
@@ -715,27 +795,32 @@
       <form id="signin-form">
         <div class="input-group">
           <label class="input-label" for="signin-email">Email</label>
-          <input class="input-field" type="email" id="signin-email" placeholder="user123@email.com" required autocomplete="email username">
+          <input class="input-field" type="email" id="signin-email" placeholder="user123@email.com" required
+            autocomplete="email username">
         </div>
         <div class="input-group">
           <label class="input-label" for="signin-password">Password</label>
-          <input class="input-field" type="password" id="signin-password" placeholder="Password" required autocomplete="current-password">
+          <input class="input-field" type="password" id="signin-password" placeholder="Password" required
+            autocomplete="current-password">
         </div>
         <button class="btn-primary" type="submit" style="margin-top: 8px;">
           <span>LOGIN →</span>
         </button>
       </form>
 
-      <div class="panel-footer" style="margin-top: 18px; justify-content: space-between; align-items: center; gap: 8px;">
+      <div class="panel-footer"
+        style="margin-top: 18px; justify-content: space-between; align-items: center; gap: 8px;">
         <span class="text-link" id="go-to-reset">Forgot?</span>
-        <div style="font-size: 13px; color: var(--text-muted);">Don't have an account? <span class="text-link" id="go-to-signup">Sign up</span></div>
+        <div style="font-size: 13px; color: var(--text-muted);">Don't have an account? <span class="text-link"
+            id="go-to-signup">Sign up</span></div>
       </div>
     </div>
 
     <!-- SIGN UP PANEL -->
     <div class="form-panel" id="signup-panel">
       <div style="margin-bottom: 24px; text-align: left;">
-        <h2 style="font-family: var(--font-outfit); font-size: 32px; font-weight: 800; margin-bottom: 8px;">Create Account</h2>
+        <h2 style="font-family: var(--font-outfit); font-size: 32px; font-weight: 800; margin-bottom: 8px;">Create
+          Account</h2>
         <p style="font-size: 14px; color: rgba(100, 116, 139, 0.95); line-height: 1.7; max-width: 340px; margin: 0;">
           Use your email to create an account.
         </p>
@@ -743,19 +828,23 @@
       <form id="signup-form">
         <div class="input-group">
           <label class="input-label" for="signup-name">Full Name</label>
-          <input class="input-field" type="text" id="signup-name" placeholder="Jhonne Williams" required autocomplete="name">
+          <input class="input-field" type="text" id="signup-name" placeholder="Jhonne Williams" required
+            autocomplete="name">
         </div>
         <div class="input-group">
           <label class="input-label" for="signup-email">Email</label>
-          <input class="input-field" type="email" id="signup-email" placeholder="user123@email.com" required autocomplete="email">
+          <input class="input-field" type="email" id="signup-email" placeholder="user123@email.com" required
+            autocomplete="email">
         </div>
         <div class="input-group">
           <label class="input-label" for="signup-password">Password</label>
-          <input class="input-field" type="password" id="signup-password" placeholder="Password" required autocomplete="new-password">
+          <input class="input-field" type="password" id="signup-password" placeholder="Password" required
+            autocomplete="new-password">
         </div>
         <div class="input-group">
           <label class="input-label" for="signup-confirm">Confirm Password</label>
-          <input class="input-field" type="password" id="signup-confirm" placeholder="Confirm Password" required autocomplete="new-password">
+          <input class="input-field" type="password" id="signup-confirm" placeholder="Confirm Password" required
+            autocomplete="new-password">
         </div>
         <button class="btn-primary" type="submit" style="margin-top: 10px;">
           <span>SIGN UP →</span>
@@ -763,7 +852,8 @@
       </form>
 
       <div class="panel-footer" style="margin-top: 18px; justify-content: center; gap: 8px;">
-        <div style="font-size: 13px; color: rgba(100, 116, 139, 0.82);">Already have an account? <span class="text-link" id="go-to-signin">Sign In</span></div>
+        <div style="font-size: 13px; color: rgba(100, 116, 139, 0.82);">Already have an account? <span class="text-link"
+            id="go-to-signin">Sign In</span></div>
       </div>
     </div>
 
@@ -792,19 +882,27 @@
     <div class="form-panel" id="otp-panel">
       <div style="text-align: center; padding: 8px 0 16px;">
         <div style="font-size: 52px; margin-bottom: 16px; animation: logoPulse 2.5s infinite ease-in-out;">🔐</div>
-        <h3 style="font-family: var(--font-outfit); font-size: 20px; font-weight: 700; color: var(--color-white); margin-bottom: 10px;">New device detected</h3>
+        <h3
+          style="font-family: var(--font-outfit); font-size: 20px; font-weight: 700; color: var(--color-white); margin-bottom: 10px;">
+          New device detected</h3>
         <p style="font-size: 13.5px; color: var(--color-slate-400); line-height: 1.6; margin-bottom: 8px;">
           We sent a one-time code to your email to confirm this browser or device. Enter the 6-digit code below.
         </p>
       </div>
       <form id="otp-form">
         <div class="otp-code-group" id="otp-code-group">
-          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code">
-          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code">
-          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code">
-          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code">
-          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code">
-          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code">
+          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
+            autocomplete="one-time-code">
+          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
+            autocomplete="one-time-code">
+          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
+            autocomplete="one-time-code">
+          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
+            autocomplete="one-time-code">
+          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
+            autocomplete="one-time-code">
+          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
+            autocomplete="one-time-code">
         </div>
         <button class="btn-primary" type="submit" style="margin-top: 10px;">
           <span>Confirm Code</span>
@@ -818,52 +916,77 @@
     <!-- ONBOARDING PANEL -->
     <div class="form-panel" id="onboarding-panel">
       <div class="onboarding-steps">
-        <div class="onboarding-progress">Onboarding • Step <span id="onboarding-step-number">1</span> of 2</div>
 
+        <!-- Step dots -->
+        <div class="onboarding-step-indicators">
+          <div class="onboarding-dot active" id="dot-username"></div>
+          <div class="onboarding-dot-line"></div>
+          <div class="onboarding-dot" id="dot-profile"></div>
+        </div>
+        <div class="onboarding-progress">Stap <span id="onboarding-step-number">1</span> van 2</div>
+
+        <!-- STEP 1: Username -->
         <div class="onboarding-step active" data-step="username" id="onboarding-username-step">
-          <div style="text-align: center; padding: 8px 0 16px;">
-            <div style="font-size: 48px; margin-bottom: 16px;">✍️</div>
-            <h3 style="font-family: var(--font-outfit); font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 10px;">Choose your Wonder username</h3>
-            <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px;">
-              Pick a unique handle. This username will be visible to other Wonder ID members.
+          <div style="text-align: center; padding: 8px 0 20px;">
+            <div style="font-size: 46px; margin-bottom: 14px; animation: logoPulse 2.5s infinite ease-in-out;">✍️</div>
+            <h3
+              style="font-family: var(--font-outfit); font-size: 21px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">
+              Kies je gebruikersnaam</h3>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+              Uniek en zichtbaar voor andere Wonder ID-leden.
             </p>
           </div>
           <form id="onboarding-username-form">
             <div class="input-group">
-              <label class="input-label" for="onboarding-username">Username</label>
-              <input class="input-field" type="text" id="onboarding-username" placeholder="WonderGamer" required autocomplete="username">
+              <label class="input-label" for="onboarding-username">Gebruikersnaam</label>
+              <input class="input-field" type="text" id="onboarding-username" placeholder="WonderGamer" required
+                autocomplete="username" maxlength="30">
             </div>
-            <button class="btn-primary" type="submit" style="margin-top: 10px;">
-              <span>Next</span>
+            <button class="btn-primary" type="submit" style="margin-top: 12px;">
+              Volgende →
             </button>
           </form>
         </div>
 
+        <!-- STEP 2: Profile Photo -->
         <div class="onboarding-step" data-step="profile" id="onboarding-profile-step">
-          <div style="text-align: center; padding: 8px 0 16px;">
-            <div style="font-size: 48px; margin-bottom: 16px;">📸</div>
-            <h3 style="font-family: var(--font-outfit); font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 10px;">Upload a profile picture</h3>
-            <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px;">
-              Drag and drop an image or choose one from your device. This makes your Wonder ID feel complete.
+          <div style="text-align: center; padding: 8px 0 18px;">
+            <h3
+              style="font-family: var(--font-outfit); font-size: 21px; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">
+              Profielfoto</h3>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 22px;">
+              Kies een foto of ga verder — je initiaal wordt je avatar.
             </p>
+
+            <!-- Live avatar preview ring -->
+            <div class="onboarding-avatar-ring" id="onboarding-avatar-ring">
+              <div class="onboarding-avatar-inner" id="onboarding-avatar-inner">?</div>
+            </div>
+            <p id="onboarding-avatar-status" class="onboarding-avatar-status">Nog geen foto gekozen</p>
           </div>
-          <div class="upload-dropzone" id="profile-dropzone">
-            <div class="upload-preview" id="profile-preview" aria-hidden="true"></div>
-            <div style="text-align: center;">
-              <strong>Drag & Drop or Browse</strong>
-              <p style="margin-top: 8px; color: var(--color-slate-400); font-size: 13px; max-width: 260px;">
-                Accepts JPG, PNG or WEBP. Your image will be attached to your user profile.
-              </p>
+
+          <!-- Dropzone -->
+          <div class="upload-dropzone" id="profile-dropzone" style="padding: 18px; margin-bottom: 10px;">
+            <div style="text-align: center; pointer-events: none;">
+              <div style="font-size: 24px; margin-bottom: 4px;">📁</div>
+              <strong style="font-size: 13px; color: var(--text-main);">Sleep een foto hierheen of kies uit je
+                bestanden</strong>
+              <p style="margin-top: 4px; color: var(--color-slate-400); font-size: 12px;">JPG, PNG of WEBP</p>
             </div>
             <input type="file" id="profile-file-input" accept="image/*" hidden>
           </div>
-          <button class="btn-primary" type="button" id="profile-upload-btn" style="margin-top: 14px;">
-            <span>Choose Image</span>
+
+          <!-- Save & Continue (disabled until photo selected) -->
+          <button class="btn-primary" type="button" id="profile-upload-btn" disabled
+            style="width: 100%; opacity: 0.4; cursor: not-allowed; transition: opacity 0.3s ease, cursor 0s;">
+            ✓ &nbsp;Opslaan &amp; Doorgaan
           </button>
-          <div class="panel-footer" style="margin-top: 20px;">
-            <span class="text-link" id="onboarding-skip">Skip for now</span>
+
+          <div class="panel-footer" style="margin-top: 14px;">
+            <span class="text-link" id="onboarding-skip">Overslaan — initiaal als avatar</span>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -871,7 +994,9 @@
     <div class="form-panel" id="verify-panel">
       <div style="text-align: center; padding: 8px 0 16px;">
         <div style="font-size: 52px; margin-bottom: 16px; animation: logoPulse 2.5s infinite ease-in-out;">📬</div>
-        <h3 style="font-family: var(--font-outfit); font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 10px;">Check your inbox!</h3>
+        <h3
+          style="font-family: var(--font-outfit); font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 10px;">
+          Check your inbox!</h3>
         <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px;">
           We've sent a verification link to<br>
           <strong id="verify-email-display" style="color: var(--color-purple-light);">your email address</strong>.
@@ -1010,6 +1135,50 @@
         panel.classList.toggle('active', panel.dataset.step === step);
       });
       document.getElementById('onboarding-step-number').textContent = step === 'username' ? '1' : '2';
+
+      // Animate step dots
+      const dotUsername = document.getElementById('dot-username');
+      const dotProfile = document.getElementById('dot-profile');
+      if (dotUsername && dotProfile) {
+        dotUsername.classList.toggle('active', step === 'username');
+        dotProfile.classList.toggle('active', step === 'profile');
+      }
+
+      // When entering the profile step, seed the avatar ring with the username initial
+      if (step === 'profile') {
+        updateOnboardingAvatar(null);
+      }
+    }
+
+    function updateOnboardingAvatar(dataUrl) {
+      const ring = document.getElementById('onboarding-avatar-ring');
+      const inner = document.getElementById('onboarding-avatar-inner');
+      const status = document.getElementById('onboarding-avatar-status');
+      const uploadBtn = document.getElementById('profile-upload-btn');
+
+      if (dataUrl) {
+        // Show photo in ring
+        inner.innerHTML = `<img src="${dataUrl}" alt="Avatar preview" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+        if (status) { status.textContent = '✓ Foto geselecteerd'; status.style.color = 'var(--color-emerald)'; }
+        // Enable save button
+        if (uploadBtn) {
+          uploadBtn.disabled = false;
+          uploadBtn.style.opacity = '1';
+          uploadBtn.style.cursor = 'pointer';
+        }
+      } else {
+        // Show letter initial
+        const username = document.getElementById('onboarding-username')?.value?.trim() || '';
+        const letter = username ? username[0].toUpperCase() : '?';
+        inner.innerHTML = `<span style="font-size:38px;font-weight:800;font-family:var(--font-outfit);color:var(--color-purple);line-height:1;user-select:none;">${letter}</span>`;
+        if (status) { status.textContent = 'Nog geen foto gekozen'; status.style.color = ''; }
+        // Disable save button
+        if (uploadBtn) {
+          uploadBtn.disabled = true;
+          uploadBtn.style.opacity = '0.4';
+          uploadBtn.style.cursor = 'not-allowed';
+        }
+      }
     }
 
     function showOnboardingPanel() {
@@ -1020,42 +1189,33 @@
     function prepareProfileDropzone() {
       const dropzone = document.getElementById('profile-dropzone');
       const fileInput = document.getElementById('profile-file-input');
-      const preview = document.getElementById('profile-preview');
       const uploadBtn = document.getElementById('profile-upload-btn');
 
-      function showPreview(file) {
+      function handleFile(file) {
+        if (!file) return;
         const reader = new FileReader();
-        reader.onload = () => {
-          preview.innerHTML = `<img src="${reader.result}" alt="Profile preview" />`;
+        reader.onload = (e) => {
+          const dt = new DataTransfer();
+          dt.items.add(file);
+          fileInput.files = dt.files;
+          updateOnboardingAvatar(e.target.result);
         };
         reader.readAsDataURL(file);
       }
 
-      function updateUploadButtonState() {
-        uploadBtn.textContent = fileInput.files?.length ? 'Upload Photo' : 'Choose Image';
-      }
-
-      function handleFile(file) {
-        if (!file) return;
-        showPreview(file);
-        const dt = new DataTransfer();
-        dt.items.add(file);
-        fileInput.files = dt.files;
-        updateUploadButtonState();
-      }
-
+      // Save & Continue button
       uploadBtn.addEventListener('click', () => {
-        if (fileInput.files?.length) {
+        if (!uploadBtn.disabled) {
           uploadProfilePicture();
-        } else {
-          fileInput.click();
         }
       });
+
+      // File input change
       fileInput.addEventListener('change', (event) => {
         handleFile(event.target.files?.[0]);
       });
-      updateUploadButtonState();
 
+      // Drag & drop on dropzone
       dropzone.addEventListener('dragover', (event) => {
         event.preventDefault();
         dropzone.classList.add('dragover');
@@ -1070,29 +1230,23 @@
         dropzone.classList.remove('dragover');
         handleFile(event.dataTransfer.files?.[0]);
       });
+
+      // Click on dropzone itself also opens picker
+      dropzone.addEventListener('click', () => fileInput.click());
     }
 
     document.getElementById('go-to-signup').addEventListener('click', () => switchPanel('signup'));
     document.getElementById('go-to-reset').addEventListener('click', () => switchPanel('reset'));
     document.getElementById('go-to-signin').addEventListener('click', () => switchPanel('signin'));
     document.getElementById('reset-to-signin').addEventListener('click', () => switchPanel('signin'));
-    document.getElementById('verify-to-signin').addEventListener('click', () => switchPanel('signin'));
+    document.getElementById('verify-to-signin').addEventListener('click', () => {
+      stopVerificationPolling();
+      switchPanel('signin');
+    });
     document.getElementById('otp-back-to-signin').addEventListener('click', () => switchPanel('signin'));
     document.getElementById('onboarding-skip').addEventListener('click', async () => {
-      const userId = pb.authStore.model?.id;
-      if (!userId) {
-        showToast('Could not complete onboarding. Please sign in again.', 'error');
-        switchPanel('signin');
-        return;
-      }
-      try {
-        await pb.collection('users').update(userId, { username: pb.authStore.model?.username || `user${Date.now()}` });
-        showToast('Onboarding skipped. Welcome to Wonder ID!', 'success');
-        setTimeout(() => window.location.href = 'home.html', 600);
-      } catch (error) {
-        console.error('Onboarding skip failure:', error);
-        showToast('Could not skip onboarding. Try uploading a profile image or sign in later.', 'error');
-      }
+      showToast('Je initiaal wordt gebruikt als avatar. Welkom bij Wonder ID!', 'success');
+      setTimeout(() => window.location.href = 'home.html', 700);
     });
 
     const signInForm = document.getElementById('signin-form');
@@ -1101,6 +1255,46 @@
     const otpForm = document.getElementById('otp-form');
     const onboardingUsernameForm = document.getElementById('onboarding-username-form');
     const profileFileInput = document.getElementById('profile-file-input');
+
+    let verificationPollInterval = null;
+
+    function startVerificationPolling(email, password) {
+      stopVerificationPolling();
+      console.log('Starting verification polling for:', email);
+      verificationPollInterval = setInterval(async () => {
+        try {
+          // Attempt authentication to see if user has verified their email
+          const authData = await pb.collection('users').authWithPassword(email, password);
+          if (authData.record.verified) {
+            stopVerificationPolling();
+            markKnownDevice();
+
+            // Always show onboarding after email verification — this is a fresh signup.
+            // Pre-fill username field if account already has one (e.g. from a prior partial setup).
+            showToast('E-mail geverifieerd! Stel nu je profiel in.', 'success');
+            const existingUsername = authData.record.username || '';
+            if (existingUsername) {
+              const usernameInput = document.getElementById('onboarding-username');
+              if (usernameInput) usernameInput.value = existingUsername;
+            }
+            showOnboardingPanel();
+          } else {
+            // Not verified yet, clear authStore to prevent half-authenticated state
+            pb.authStore.clear();
+          }
+        } catch (error) {
+          // Ignore failed auth attempts while waiting for verification
+        }
+      }, 3000);
+    }
+
+    function stopVerificationPolling() {
+      if (verificationPollInterval) {
+        clearInterval(verificationPollInterval);
+        verificationPollInterval = null;
+        console.log('Verification polling stopped.');
+      }
+    }
 
     function getDeviceFingerprint() {
       return `${navigator.userAgent}|${navigator.platform}|${navigator.language}`;
@@ -1118,18 +1312,32 @@
         startResendCountdown();
         switchPanel('verify');
         showToast('Please verify your email address first.', 'warning');
+        const signinPasswordVal = document.getElementById('signin-password').value;
+        const signupPasswordVal = document.getElementById('signup-password').value;
+        const passwordToUse = signinPasswordVal || signupPasswordVal || '';
+        if (passwordToUse) {
+          startVerificationPolling(authData.record.email, passwordToUse);
+        }
         return;
       }
 
       markKnownDevice();
 
-      if (!authData.record.username) {
-        showToast('Email verified. Continue onboarding to finish your Wonder ID.', 'success');
+      // If this is a fresh signup flow, always go to onboarding.
+      // For a normal returning login where username is set, go straight to dashboard.
+      if (window._isNewSignup || !authData.record.username) {
+        window._isNewSignup = false;
+        const existingUsername = authData.record.username || '';
+        if (existingUsername) {
+          const usernameInput = document.getElementById('onboarding-username');
+          if (usernameInput) usernameInput.value = existingUsername;
+        }
+        showToast('Welkom! Stel je profiel in om te beginnen.', 'success');
         showOnboardingPanel();
         return;
       }
 
-      showToast('Signed in successfully. Redirecting…', 'success');
+      showToast('Ingelogd! Je wordt doorgestuurd…', 'success');
       setTimeout(() => window.location.href = 'home.html', 700);
     }
 
@@ -1144,13 +1352,39 @@
 
       try {
         if (shouldRequestOtp()) {
+          // First verify credentials — only send OTP if password is correct
+          let preAuth;
+          try {
+            preAuth = await pb.collection('users').authWithPassword(email, password);
+          } catch (credError) {
+            // Password wrong or account issue — show error, never go to OTP
+            throw credError;
+          }
+
+          // Credentials valid — clear the auth session (OTP will create a fresh one)
+          pb.authStore.clear();
+
+          // If email not verified, show verify screen instead of OTP
+          if (!preAuth.record.verified) {
+            window._pendingVerifyEmail = email;
+            document.getElementById('verify-email-display').textContent = email;
+            startResendCountdown();
+            switchPanel('verify');
+            showToast('Verifieer eerst je e-mailadres.', 'warning');
+            startVerificationPolling(email, password);
+            btn.disabled = false;
+            btn.innerHTML = origText;
+            return;
+          }
+
+          // Password OK + email verified → now send OTP for new device confirmation
           const otpResponse = await pb.collection('users').requestOTP(email);
           window._pendingOtpEmail = email;
           window._pendingOtpId = otpResponse?.id || otpResponse?.otpId || null;
           setOtpPanelTitle(email);
           clearOtpInputs();
           switchPanel('otp');
-          showToast('OTP sent to your email. Check your inbox.', 'info');
+          showToast('Nieuw apparaat gedetecteerd — controleer je inbox voor de code.', 'info');
           btn.disabled = false;
           btn.innerHTML = origText;
           return;
@@ -1167,6 +1401,7 @@
           startResendCountdown();
           switchPanel('verify');
           showToast('Please verify your email first.', 'warning');
+          startVerificationPolling(email, password);
         } else {
           showToast('Incorrect email or password.', 'error');
         }
@@ -1210,10 +1445,12 @@
         });
         await pb.collection('users').requestVerification(email);
         window._pendingVerifyEmail = email;
+        window._isNewSignup = true;
         document.getElementById('verify-email-display').textContent = email;
         startResendCountdown();
         switchPanel('verify');
-        showToast('Account created! Verify your email before continuing.', 'success');
+        showToast('Account aangemaakt! Verifieer je e-mail om door te gaan.', 'success');
+        startVerificationPolling(email, password);
       } catch (error) {
         console.error('Sign up failure:', error);
         let msg = 'Could not create account. Please check your details.';
@@ -1335,9 +1572,9 @@
     function readFileAsDataURL(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
           const img = new Image();
-          img.onload = function() {
+          img.onload = function () {
             let width = img.width;
             let height = img.height;
             const maxDim = 96;
@@ -1357,7 +1594,7 @@
             canvas.width = width;
             canvas.height = height;
             const ctx = canvas.getContext('2d');
-            
+
             // Fill background with white in case of transparent images
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, width, height);
@@ -1388,7 +1625,7 @@
 
             resolve(dataUrl);
           };
-          img.onerror = function() {
+          img.onerror = function () {
             // Fall back to original file reading on error
             const fallbackReader = new FileReader();
             fallbackReader.onload = () => resolve(fallbackReader.result);
@@ -1397,7 +1634,7 @@
           };
           img.src = e.target.result;
         };
-        reader.onerror = function() {
+        reader.onerror = function () {
           reject(reader.error || new Error('Failed to read file.'));
         };
         reader.readAsDataURL(file);
