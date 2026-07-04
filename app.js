@@ -1,4 +1,4 @@
-import PocketBase from 'https://cdn.jsdelivr.net/npm/pocketbase@0.21.1/+esm';
+import PocketBase from 'https://cdn.jsdelivr.net/npm/pocketbase@0.23.0/+esm';
 export const pb = new PocketBase('http://192.168.200.15:8090');
 
 export function showToast(message, type = 'info') {
@@ -74,11 +74,11 @@ export function showToast(message, type = 'info') {
       : '0 12px 30px rgba(245, 158, 11, 0.15)';
   } else {
     icon = '⚡';
-    bgColor = isLight ? 'rgba(139, 92, 246, 0.1)' : 'rgba(139, 92, 246, 0.15)';
-    borderColor = '#8b5cf6';
+    bgColor = isLight ? 'rgba(255, 195, 55, 0.1)' : 'rgba(255, 159, 27, 0.15)';
+    borderColor = '#ff9f1b';
     toast.style.boxShadow = isLight
-      ? '0 8px 24px rgba(139, 92, 246, 0.2)'
-      : '0 12px 30px rgba(139, 92, 246, 0.15)';
+      ? '0 8px 24px rgba(255, 195, 55, 0.2)'
+      : '0 12px 30px rgba(255, 159, 27, 0.15)';
   }
 
   // Light mode: solid white base so text is always readable
