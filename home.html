@@ -8,8 +8,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Wonder Accounts">
   <link rel="manifest" href="./manifest.json">
-  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192x192.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
   <title>⚡ Wonder ID - Accounts Center</title>
 
   <!-- Modern Fonts -->
@@ -73,11 +73,13 @@
       --color-slate-400: #55647a;
       --color-purple: #ffc33f;
       --color-purple-light: #fff1a1;
-      --color-purple-dark: #d97706; /* darker amber/gold for better light mode contrast */
+      --color-purple-dark: #d97706;
+      /* darker amber/gold for better light mode contrast */
       --color-red: #dc2626;
       --color-red-dark: #991b1b;
       --color-emerald: #059669;
-      --color-white: #0c1726; /* map white variables to dark text where appropriate in light theme */
+      --color-white: #0c1726;
+      /* map white variables to dark text where appropriate in light theme */
       --text-main: #0c1726;
       --text-muted: rgba(15, 23, 42, 0.82);
       --body-bg: #fbebda;
@@ -1084,7 +1086,7 @@
 
   <!-- Shared Javascript Dashboard Logic -->
   <script type="module">
-    import { pb, showToast } from "./app.js";
+    import { pb, showToast } from "./js/app.js";
 
     // -----------------------------------------------------------
     // Avatar Preset Data Dictionary
