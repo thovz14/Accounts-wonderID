@@ -1,5 +1,5 @@
 import PocketBase from 'https://cdn.jsdelivr.net/npm/pocketbase@0.23.0/+esm';
-export const pb = new PocketBase('http://192.168.200.15:8090');
+export const pb = new PocketBase('https://db.wonderdev.nl/');
 
 export function showToast(message, type = 'info') {
   let container = document.getElementById('toast-container');
