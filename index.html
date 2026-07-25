@@ -1127,6 +1127,20 @@
             inputs[index - 1].focus();
           }
         });
+        input.addEventListener('paste', (event) => {
+          event.preventDefault();
+          const pasteData = (event.clipboardData || window.clipboardData).getData('text');
+          const numbers = pasteData.replace(/[^0-9]/g, '');
+          if (numbers.length > 0) {
+            for (let i = 0; i < numbers.length; i++) {
+              if (inputs[index + i]) {
+                inputs[index + i].value = numbers[i];
+              }
+            }
+            const focusIndex = Math.min(index + numbers.length, inputs.length - 1);
+            inputs[focusIndex].focus();
+          }
+        });
       });
     }
 
