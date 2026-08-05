@@ -1267,7 +1267,7 @@
             </div>
             <div class="admin-user-info">
               <div class="admin-user-name">${user.username || 'WonderGamer'}</div>
-              <div class="admin-user-email">${user.email || 'No email synced'}</div>
+              <div class="admin-user-email">${user.email || 'Email hidden for privacy'}</div>
               <div class="admin-user-date">✨ ${formatDate(user.joinDate || user.created)}</div>
             </div>
           `;
@@ -1296,7 +1296,7 @@
         </div>
       `;
       document.getElementById('admin-inspect-username').textContent = user.username || 'WonderGamer';
-      document.getElementById('admin-inspect-email').textContent = user.email || 'No email synced';
+      document.getElementById('admin-inspect-email').textContent = user.email || 'Email hidden for privacy';
       document.getElementById('admin-inspect-joindate').textContent = formatDate(user.joinDate || user.created);
       document.getElementById('admin-inspect-created').textContent = formatDate(user.created);
       document.getElementById('admin-inspect-updated').textContent = formatDate(user.updated);
