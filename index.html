@@ -424,39 +424,7 @@
       object-fit: cover;
     }
 
-    .otp-code-group {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(44px, 1fr));
-      gap: 10px;
-      justify-items: center;
-      margin-bottom: 18px;
-    }
-
-    .otp-input {
-      width: 44px;
-      height: 52px;
-      text-align: center;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--color-white);
-      font-size: 20px;
-      font-weight: 700;
-      transition: all 0.2s ease;
-    }
-
-    .otp-input:focus {
-      outline: none;
-      border-color: var(--color-purple);
-      background: rgba(255, 255, 255, 0.16);
-      box-shadow: 0 0 0 3px rgba(255, 159, 27, 0.15);
-    }
-
-    html[data-theme="light"] .otp-input {
-      border-color: rgba(255, 159, 27, 0.18);
-      background: rgba(255, 255, 255, 0.94);
-      color: var(--color-slate-900);
-    }
+    /* OTP Styles Removed */
 
     html[data-theme="light"] .upload-dropzone {
       background: rgba(255, 255, 255, 0.96);
@@ -565,30 +533,7 @@
       box-shadow: 0 0 0 3px rgba(255, 159, 27, 0.22);
     }
 
-    .otp-code-group {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(50px, 1fr));
-      gap: 10px;
-      margin: 24px 0;
-    }
-
-    .otp-input {
-      width: 100%;
-      min-height: 60px;
-      border-radius: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text-main);
-      font-size: 24px;
-      text-align: center;
-      outline: none;
-      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-    }
-
-    .otp-input:focus {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: #ff9f1b;
-    }
+    /* OTP Styles 2 Removed */
 
     .upload-dropzone {
       position: relative;
@@ -740,15 +685,7 @@
       border-color: #ff9f1b;
     }
 
-    html[data-theme="light"] .otp-input {
-      background: #ffffff;
-      color: var(--text-main);
-      border: 1px solid rgba(15, 23, 42, 0.15);
-    }
-
-    html[data-theme="light"] .otp-input:focus {
-      border-color: #ff9f1b;
-    }
+    /* OTP Styles 3 Removed */
 
     html[data-theme="light"] .upload-preview {
       background: rgba(15, 23, 42, 0.04);
@@ -914,40 +851,7 @@
       </div>
     </div>
 
-    <!-- OTP VERIFICATION PANEL -->
-    <div class="form-panel" id="otp-panel">
-      <div style="text-align: center; padding: 8px 0 16px;">
-        <div style="font-size: 52px; margin-bottom: 16px; animation: logoPulse 2.5s infinite ease-in-out;">🔐</div>
-        <h3
-          style="font-family: var(--font-outfit); font-size: 20px; font-weight: 700; color: var(--color-white); margin-bottom: 10px;">
-          New device detected</h3>
-        <p style="font-size: 13.5px; color: var(--color-slate-400); line-height: 1.6; margin-bottom: 8px;">
-          We sent a one-time code to your email to confirm this browser or device. Enter the 6-digit code below.
-        </p>
-      </div>
-      <form id="otp-form">
-        <div class="otp-code-group" id="otp-code-group">
-          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
-            autocomplete="one-time-code">
-          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
-            autocomplete="one-time-code">
-          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
-            autocomplete="one-time-code">
-          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
-            autocomplete="one-time-code">
-          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
-            autocomplete="one-time-code">
-          <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
-            autocomplete="one-time-code">
-        </div>
-        <button class="btn-primary" type="submit" style="margin-top: 10px;">
-          <span>Confirm Code</span>
-        </button>
-      </form>
-      <div class="panel-footer">
-        <span class="text-link" id="otp-back-to-signin">Back to Sign In</span>
-      </div>
-    </div>
+    <!-- OTP VERIFICATION PANEL REMOVED -->
 
     <!-- ONBOARDING PANEL -->
     <div class="form-panel" id="onboarding-panel">
@@ -1071,10 +975,6 @@
         el: document.getElementById('verify-panel'),
         subtitle: 'Verify your email address'
       },
-      otp: {
-        el: document.getElementById('otp-panel'),
-        subtitle: 'Confirm your new device'
-      },
       onboarding: {
         el: document.getElementById('onboarding-panel'),
         subtitle: 'Finish onboarding'
@@ -1129,56 +1029,7 @@
       }, 1000);
     }
 
-    function setOtpPanelTitle(email) {
-      const title = document.querySelector('#otp-panel h3');
-      if (title) {
-        title.textContent = `Verification sent to ${email}`;
-      }
-    }
-
-    function getOtpCode() {
-      return Array.from(document.querySelectorAll('#otp-panel .otp-input'))
-        .map(input => input.value.trim())
-        .join('');
-    }
-
-    function clearOtpInputs() {
-      document.querySelectorAll('#otp-panel .otp-input').forEach(input => input.value = '');
-      const first = document.querySelector('#otp-panel .otp-input');
-      if (first) first.focus();
-    }
-
-    function enableOtpAutoAdvance() {
-      const inputs = Array.from(document.querySelectorAll('#otp-panel .otp-input'));
-      inputs.forEach((input, index) => {
-        input.addEventListener('input', (event) => {
-          const value = event.target.value.replace(/[^0-9]/g, '');
-          event.target.value = value;
-          if (value && inputs[index + 1]) {
-            inputs[index + 1].focus();
-          }
-        });
-        input.addEventListener('keydown', (event) => {
-          if (event.key === 'Backspace' && !event.target.value && inputs[index - 1]) {
-            inputs[index - 1].focus();
-          }
-        });
-        input.addEventListener('paste', (event) => {
-          event.preventDefault();
-          const pasteData = (event.clipboardData || window.clipboardData).getData('text');
-          const numbers = pasteData.replace(/[^0-9]/g, '');
-          if (numbers.length > 0) {
-            for (let i = 0; i < numbers.length; i++) {
-              if (inputs[index + i]) {
-                inputs[index + i].value = numbers[i];
-              }
-            }
-            const focusIndex = Math.min(index + numbers.length, inputs.length - 1);
-            inputs[focusIndex].focus();
-          }
-        });
-      });
-    }
+    // OTP logic removed
 
     function showOnboardingStep(step) {
       document.querySelectorAll('.onboarding-step').forEach((panel) => {
@@ -1293,7 +1144,7 @@
       stopVerificationPolling();
       switchPanel('signin');
     });
-    document.getElementById('otp-back-to-signin').addEventListener('click', () => switchPanel('signin'));
+    // OTP back button listener removed
     document.getElementById('onboarding-skip').addEventListener('click', async () => {
       showToast('Je initiaal wordt gebruikt als avatar. Welkom bij Wonder ID!', 'success');
       setTimeout(() => window.location.href = 'home.html', 700);
@@ -1302,7 +1153,6 @@
     const signInForm = document.getElementById('signin-form');
     const signUpForm = document.getElementById('signup-form');
     const resetForm = document.getElementById('reset-form');
-    const otpForm = document.getElementById('otp-form');
     const onboardingUsernameForm = document.getElementById('onboarding-username-form');
     const profileFileInput = document.getElementById('profile-file-input');
 
@@ -1348,10 +1198,6 @@
 
     function getDeviceFingerprint() {
       return `${navigator.userAgent}|${navigator.platform}|${navigator.language}`;
-    }
-
-    function shouldRequestOtp() {
-      return !deviceIsKnown();
     }
 
     async function handleSuccessfulLogin(authData) {
@@ -1401,45 +1247,6 @@
       btn.innerHTML = `<span class="spinner"></span> <span>Signing In...</span>`;
 
       try {
-        if (shouldRequestOtp()) {
-          // First verify credentials — only send OTP if password is correct
-          let preAuth;
-          try {
-            preAuth = await pb.collection('users').authWithPassword(email, password);
-          } catch (credError) {
-            // Password wrong or account issue — show error, never go to OTP
-            throw credError;
-          }
-
-          // Credentials valid — clear the auth session (OTP will create a fresh one)
-          pb.authStore.clear();
-
-          // If email not verified, show verify screen instead of OTP
-          if (!preAuth.record.verified) {
-            window._pendingVerifyEmail = email;
-            document.getElementById('verify-email-display').textContent = email;
-            startResendCountdown();
-            switchPanel('verify');
-            showToast('Verifieer eerst je e-mailadres.', 'warning');
-            startVerificationPolling(email, password);
-            btn.disabled = false;
-            btn.innerHTML = origText;
-            return;
-          }
-
-          // Password OK + email verified → now send OTP for new device confirmation
-          const otpResponse = await pb.collection('users').requestOTP(email);
-          window._pendingOtpEmail = email;
-          window._pendingOtpId = otpResponse?.id || otpResponse?.otpId || null;
-          setOtpPanelTitle(email);
-          clearOtpInputs();
-          switchPanel('otp');
-          showToast('Nieuw apparaat gedetecteerd — controleer je inbox voor de code.', 'info');
-          btn.disabled = false;
-          btn.innerHTML = origText;
-          return;
-        }
-
         const authData = await pb.collection('users').authWithPassword(email, password);
         await handleSuccessfulLogin(authData);
       } catch (error) {
@@ -1575,38 +1382,6 @@
       }
     });
 
-    otpForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const code = getOtpCode();
-      const email = window._pendingOtpEmail;
-      const btn = otpForm.querySelector('button[type="submit"]');
-      const origText = btn.innerHTML;
-      btn.disabled = true;
-      btn.innerHTML = `<span class="spinner"></span> <span>Confirming...</span>`;
-
-      if (!email || code.length !== 6) {
-        showToast('Enter the 6-digit code from your email.', 'warning');
-        btn.disabled = false;
-        btn.innerHTML = origText;
-        return;
-      }
-
-      try {
-        const otpId = window._pendingOtpId;
-        if (!otpId) {
-          throw new Error('Missing OTP session identifier. Request a new code.');
-        }
-        const authData = await pb.collection('users').authWithOTP(otpId, code);
-        await handleSuccessfulLogin(authData);
-      } catch (error) {
-        console.error('OTP verify failure:', error);
-        showToast('Invalid or expired code. Request a new one and try again.', 'error');
-        clearOtpInputs();
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = origText;
-      }
-    });
 
     onboardingUsernameForm.addEventListener('submit', async (e) => {
       e.preventDefault();
