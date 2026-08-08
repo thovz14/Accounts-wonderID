@@ -1,5 +1,5 @@
 #!/bin/bash
-cd "/home/thomas/Apps/Wonderdev account"
+cd "/home/thomas/Developement/Apps/Wonderdev account"
 
 python3 -c "
 import sys
